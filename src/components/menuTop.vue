@@ -65,7 +65,7 @@
 </template>
 <script>
 export default {
-  name: "menuTop"
+  name: "MenuTop"
 }
 </script>
 <style>
