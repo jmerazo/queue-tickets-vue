@@ -93,23 +93,28 @@ export default {
       });
     },
     async createPerson() {
-      let person = new FormData();
-      person.append("document_type", this.person.document_type);
-      person.append("document_number", this.person.document_number);
-      person.append("names", this.person.names);
-      person.append("last_names", this.person.last_names);
-      person.append("phone", this.person.phone);
-      person.append("email", this.person.email);
-      person.append("city_id", this.selCity);
-      person.append("department_id", this.selDepartment.code);
+      const dataPerson = JSON.stringify({
+        document_type : this.person.document_type,
+        document_number : this.person.document_number,
+        names : this.person.names,
+        last_names : this.person.last_names,
+        phone : this.person.phone,
+        email : this.person.email,
+        city_id : this.selCity,
+        department_id : this.selDepartment.code
+      })
 
-      await axios.post("http://localhost:8888/apitickets/person/create", person, {
+      await axios.post("http://localhost:8888/apitickets/person/create", dataPerson, {
         headers: {
           "Content-Type": "application/json"
         }
       })
-      .then(() => {
+      .then((r) => {
+        console.log(r);
         this.$router.push("/");
+      })
+      .catch((e) => {
+        console.log(e);
       });
     }    
   }
