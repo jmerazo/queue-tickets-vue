@@ -50,7 +50,7 @@
     </section>
     
     <section>
-      <form action="" disabled>
+      <form>
         <h1 class="display-1" style="text-align:center; ">Request Ticket</h1>
         <label>Date</label><input v-model="ticket.date" type="date" class="form-ticket-2"><br>
         <label>Time</label><input v-model="ticket.time" type="time" class="form-ticket-2"><br>
@@ -58,7 +58,7 @@
         <div class="col-6">
           <div class="form-group">
               <label>Dependence</label>
-              <select v-model="dependence" @change="listSubdependences()" class="form-control" id="dependence">
+              <select v-model="dependence" @change="listSubdependences() && getCodeDependence()" class="form-control" id="dependence">
                   <option value="" disabled>Select an option...</option>
                   <option v-for="dependence in dependences" :value="dependence" :key="dependence.id">{{dependence.name}}</option>
               </select>
@@ -68,7 +68,7 @@
         <div class="col-6">
           <div class="form-group">
               <label>Subdependence</label>
-              <select v-model="subdependence" @change="listUserBySID()" class="form-control" id="subdependence">
+              <select v-model="subdependence" @change="listUserBySID() && getCodeSubdependence()" class="form-control" id="subdependence">
                   <option value="" disabled>Select an option...</option>
                   <option v-for="subdependence in subdependences" :value="subdependence.id" :key="subdependence">{{subdependence.name}}</option>
               </select>
@@ -97,7 +97,7 @@
 
         <label>Description</label><input v-model="ticket.description" type="text" class="form-ticket-2"><br>
 
-        <button class="btn btn-secondary">Send</button>
+        <button class="btn btn-secondary" @click="createTicket">Send</button>
       </form>
     </section>
 </template>
@@ -135,7 +135,10 @@ export default {
       userBySID: [],
       userSID: "",
       subjects: [],
-      subject: ""
+      subject: "",
+      codeDependence: "",
+      codeSubdependence: "",
+      count: ""
     };    
   },
   mounted() {
@@ -144,7 +147,10 @@ export default {
     this.listDependences();
     this.listSubdependences();
     this.listUserBySID();
-    this.listSubjects();  
+    this.listSubjects();
+    this.getCodeDependence();
+    this.getCodeSubdependence();
+    this.getCount();  
   },
   methods: {
     async listCities() {
@@ -194,7 +200,6 @@ export default {
       })
       .then(() => {
         this.clearInputsForm1();
-        this.$router.push("/");
       });
     },
     clearInputsForm1(){
@@ -217,6 +222,7 @@ export default {
       })
       .then((Response) => {
         //console.log("Cities", Response.data)
+        this.getCodeDependence();
         this.dependences = Response.data;
       });
     },
@@ -232,6 +238,7 @@ export default {
         })
         .then((Response) => {
           //console.log("Cities", Response.data)
+          this.getCodeSubdependence();
           this.subdependences = Response.data;
         });
       }
@@ -264,6 +271,29 @@ export default {
         this.subjects = Response.data;
       });
     },
+    async createTicket() {
+      const dataTicket = JSON.stringify({
+        date : this.ticket.date,
+        time : this.ticket.time,
+        prefix : this.codeDependence+"-"+this.codeSubdependence+"-",
+        count: this.count, 
+        dependence_id : this.dependence.id,
+        subdependence_id : this.subdependence,
+        user_id : this.userSID,
+        subject_id : this.subject,
+        description : this.ticket.description
+      })
+
+      await axios.post("http://localhost:8888/apitickets/ticket/create", dataTicket, {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      .then(() => {
+        this.clearInputsForm2();
+        this.$router.push("/");
+      });
+    },
     clearInputsForm2(){
       this.ticket.date = "",
       this.ticket.time = "",
@@ -272,7 +302,51 @@ export default {
       this.userSID = "",
       this.subject = ""
       this.ticket.description = ""
-    },     
+    },
+    async getCodeDependence() {
+      if(!this.dependence.id){
+        this.codeDependence = "";
+      }else{
+        await axios.get(`http://localhost:8888/apitickets/dependence/code/${this.dependence.id}`, {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
+          }
+        })
+        .then((Response) => {
+          //console.log("Cities", Response.data)
+          this.codeDependence = Response.data[0,0].code;
+        });
+      }
+    },
+    async getCodeSubdependence() {
+      if(!this.subdependence){
+        this.codeSubdependence = "";
+      }else{
+        await axios.get(`http://localhost:8888/apitickets/dependence/code/${this.subdependence}`, {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
+          }
+        })
+        .then((Response) => {
+          //console.log("Cities", Response.data)
+          this.codeSubdependence = Response.data[0,0].code;
+        });
+      }
+    }, 
+    async getCount() {
+      await axios.get(`http://localhost:8888/apitickets/ticket/count`, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*"
+        }
+      })
+      .then((Response) => {
+        //console.log("Cities", Response.data)
+        this.count = Response.data;
+      });
+    }    
   }
 };
 </script>
