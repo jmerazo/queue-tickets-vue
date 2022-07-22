@@ -50,7 +50,7 @@
     </section>
     
     <section>
-      <form>
+      <form style="text-align:center;">
         <h1 class="display-1" style="text-align:center; ">Request Ticket</h1>
         <label>Date</label><input v-model="ticket.date" type="date" class="form-ticket-2"><br>
         <label>Time</label><input v-model="ticket.time" type="time" class="form-ticket-2"><br>
