@@ -4,7 +4,21 @@
             <h1 class="display-1" style="text-align:center; ">Tickets</h1>
             <div style="text-align:center;">
                 <label>Fill out the form</label><br><br>
-                <label>Document type</label><input v-model="person.document_type" type="text" class="form-ticket-1"><br>
+                
+                <div class="col-6">
+                  <div class="form-group">
+                      <label>Document Type</label>
+                      <select v-model="person.document_type" class="form-control" id="document_type">
+                          <option value="" disabled>Select an option...</option>
+                          <option value="Cédula de Ciudadanía">CC - Cédula de Ciudadanía</option>
+                          <option value="Cédula de Extranjería">CE - Cédula de Extranjería</option>
+                          <option value="Número de identificación personal">NIP - Número de identificación personal</option>
+                          <option value="Número de identificación Tributaria">NIT - Número de identificación Tributaria</option>
+                          <option value="Tarjeta de Identidad">TI - Tarjeta de Identidad</option>
+                          <option value="Pasaporte">PAP - Pasaporte</option>
+                      </select>
+                  </div>
+                </div>
                 <label>Document number</label><input v-model="person.document_number" type="text" class="form-ticket-1"><br>
                 <label>Names</label><input v-model="person.names" type="text" class="form-ticket-1"><br>
                 <label>Last Names</label><input v-model="person.last_names" type="text" class="form-ticket-1"><br>
@@ -13,7 +27,7 @@
 
                 <div class="col-6">
                   <div class="form-group">
-                      <label for="departments">Departments</label>
+                      <label>Departments</label>
                       <select v-model="selDepartment" @change="listCities()" class="form-control" id="department">
                           <option value="" disabled>Select an option...</option>
                           <option v-for="department in departments" :value="department" :key="department.code">{{department.name}}</option>
@@ -23,17 +37,69 @@
 
                 <div class="col-6">
                   <div class="form-group">
-                      <label for="cities">Cities</label>
+                      <label>Cities</label>
                       <select v-model="selCity" class="form-control" id="city">
                           <option value="" disabled>Select an option...</option>
                           <option v-for="city in cities" :value="city.id" :key="city">{{city.name}}</option>
                       </select>
                   </div>
                 </div>
-                <button class="btn btn-secondary" @click="createPerson">Send</button>
+                <button class="btn btn-secondary" @click="createPerson">Request Ticket</button>
             </div>
         </section>
-    </section> 
+    </section>
+    
+    <section>
+      <form action="" disabled>
+        <h1 class="display-1" style="text-align:center; ">Request Ticket</h1>
+        <label>Date</label><input v-model="ticket.date" type="date" class="form-ticket-2"><br>
+        <label>Time</label><input v-model="ticket.time" type="time" class="form-ticket-2"><br>
+
+        <div class="col-6">
+          <div class="form-group">
+              <label>Dependence</label>
+              <select v-model="dependence" @change="listSubdependences()" class="form-control" id="dependence">
+                  <option value="" disabled>Select an option...</option>
+                  <option v-for="dependence in dependences" :value="dependence" :key="dependence.id">{{dependence.name}}</option>
+              </select>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="form-group">
+              <label>Subdependence</label>
+              <select v-model="subdependence" @change="listUserBySID()" class="form-control" id="subdependence">
+                  <option value="" disabled>Select an option...</option>
+                  <option v-for="subdependence in subdependences" :value="subdependence.id" :key="subdependence">{{subdependence.name}}</option>
+              </select>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="form-group">
+              <label>Functionary</label>
+              <select v-model="userSID" class="form-control" id="userSID">
+                  <option value="" disabled>Select an option...</option>
+                  <option v-for="user in userBySID" :value="user.id" :key="user">{{user.names}} {{user.last_names}}</option>
+              </select>
+          </div>
+        </div>
+
+        <div class="col-6">
+          <div class="form-group">
+              <label>Subject</label>
+              <select v-model="subject" class="form-control" id="userSID">
+                  <option value="" disabled>Select an option...</option>
+                  <option v-for="subject in subjects" :value="subject.id" :key="subject">{{subject.subject}}</option>
+              </select>
+          </div>
+        </div>
+
+        <label>Description</label><input v-model="ticket.description" type="text" class="form-ticket-2"><br>
+
+        <button class="btn btn-secondary">Send</button>
+      </form>
+    </section>
 </template>
 
 <script>
@@ -53,15 +119,32 @@ export default {
         phone: "",
         email: ""
       },
+      ticket: {
+        date: "",
+        time: "",
+        description: ""
+      },
       departments: [],
       cities: [],
       selDepartment: "",
-      selCity: ""
+      selCity: "",
+      dependences: [],
+      dependence: "",
+      subdependences: [],
+      subdependence: "",
+      userBySID: [],
+      userSID: "",
+      subjects: [],
+      subject: ""
     };    
   },
   mounted() {
     this.listDepartments();
-    this.listCities();  
+    this.listCities();
+    this.listDependences();
+    this.listSubdependences();
+    this.listUserBySID();
+    this.listSubjects();  
   },
   methods: {
     async listCities() {
@@ -109,14 +192,87 @@ export default {
           "Content-Type": "application/json"
         }
       })
-      .then((r) => {
-        console.log(r);
+      .then(() => {
+        this.clearInputsForm1();
         this.$router.push("/");
-      })
-      .catch((e) => {
-        console.log(e);
       });
-    }    
+    },
+    clearInputsForm1(){
+      this.person.document_type = "",
+      this.person.document_number = "",
+      this.person.names = "",
+      this.person.last_names = "",
+      this.person.phone = "",
+      this.person.email = ""
+      this.selDepartment = "",
+      this.selCity = ""
+
+    },
+    async listDependences() {
+      await axios.get("http://localhost:8888/apitickets/dependences", {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*"
+        }
+      })
+      .then((Response) => {
+        //console.log("Cities", Response.data)
+        this.dependences = Response.data;
+      });
+    },
+    async listSubdependences() {
+      if(!this.dependence){
+        this.subdependences = []
+      }else{
+        await axios.get(`http://localhost:8888/apitickets/subdependence/filter/${this.dependence.id}`, {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
+          }
+        })
+        .then((Response) => {
+          //console.log("Cities", Response.data)
+          this.subdependences = Response.data;
+        });
+      }
+    },
+    async listUserBySID() {
+      if(!this.subdependence){
+        this.userBySID = []
+      }else{
+        await axios.get(`http://localhost:8888/apitickets/user/filter/${this.subdependence}`, {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
+          }
+        })
+        .then((Response) => {
+          //console.log("Cities", Response.data)
+          this.userBySID = Response.data;
+        });
+      }
+    },
+    async listSubjects() {
+      await axios.get("http://localhost:8888/apitickets/subjects", {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*"
+        }
+      })
+      .then((Response) => {
+        //console.log("Cities", Response.data)
+        this.subjects = Response.data;
+      });
+    },
+    clearInputsForm2(){
+      this.ticket.date = "",
+      this.ticket.time = "",
+      this.dependence = "",
+      this.subdependence = "",
+      this.userSID = "",
+      this.subject = ""
+      this.ticket.description = ""
+    },     
   }
 };
 </script>
