@@ -1,105 +1,136 @@
 <template>
-    <section style="margin-top:2rem; margin-right:2rem;">
-        <section class="index">
-            <h1 class="display-1" style="text-align:center; ">Tickets</h1>
-            <div style="text-align:center;">
-                <label>Fill out the form</label><br><br>
-                
-                <div class="col-6">
-                  <div class="form-group">
-                      <label>Document Type</label>
-                      <select v-model="person.document_type" class="form-control" id="document_type">
-                          <option value="" disabled>Select an option...</option>
-                          <option value="Cédula de Ciudadanía">CC - Cédula de Ciudadanía</option>
-                          <option value="Cédula de Extranjería">CE - Cédula de Extranjería</option>
-                          <option value="Número de identificación personal">NIP - Número de identificación personal</option>
-                          <option value="Número de identificación Tributaria">NIT - Número de identificación Tributaria</option>
-                          <option value="Tarjeta de Identidad">TI - Tarjeta de Identidad</option>
-                          <option value="Pasaporte">PAP - Pasaporte</option>
-                      </select>
-                  </div>
-                </div>
-                <label>Document number</label><input v-model="person.document_number" type="text" class="form-ticket-1"><br>
-                <label>Names</label><input v-model="person.names" type="text" class="form-ticket-1"><br>
-                <label>Last Names</label><input v-model="person.last_names" type="text" class="form-ticket-1"><br>
-                <label>Phone</label><input v-model="person.phone" type="text" class="form-ticket-1"><br>
-                <label>Email</label><input v-model="person.email" type="text" class="form-ticket-1"><br>
+  <section class="container">
 
-                <div class="col-6">
-                  <div class="form-group">
-                      <label>Departments</label>
-                      <select v-model="selDepartment" @change="listCities()" class="form-control" id="department">
-                          <option value="" disabled>Select an option...</option>
-                          <option v-for="department in departments" :value="department" :key="department.code">{{department.name}}</option>
-                      </select>
-                  </div>
-                </div>
+    <form class="row">     
+         
+      <div class="col-6" id="form-ticket-1">
+        <h2 class="title">Tickets</h2>
+        <label class="subtitle">Fill out the form</label><br>
 
-                <div class="col-6">
-                  <div class="form-group">
-                      <label>Cities</label>
-                      <select v-model="selCity" class="form-control" id="city">
-                          <option value="" disabled>Select an option...</option>
-                          <option v-for="city in cities" :value="city.id" :key="city">{{city.name}}</option>
-                      </select>
-                  </div>
-                </div>
-                <button class="btn btn-secondary" @click="createPerson">Request Ticket</button>
+        <div class="row">
+          <div class="col-6">
+            <label class="form-label">Document Type</label>
+            <select v-model="person.document_type" class="form-control" id="document_type">
+              <option value="" disabled>Select an option...</option>
+              <option value="Cédula de Ciudadanía">CC - Cédula de Ciudadanía</option>
+              <option value="Cédula de Extranjería">CE - Cédula de Extranjería</option>
+              <option value="Número de identificación personal">NIP - Número de identificación personal</option>
+              <option value="Número de identificación Tributaria">NIT - Número de identificación Tributaria</option>
+              <option value="Tarjeta de Identidad">TI - Tarjeta de Identidad</option>
+              <option value="Pasaporte">PAP - Pasaporte</option>
+            </select>
+          </div>
+
+          <div class="col-6">
+            <label class="form-label">Document number</label>
+            <input v-model="person.document_number" type="text" class="form-control">
+          </div>
+
+          <div class="col-6">
+            <label class="form-label">Names</label>
+            <input v-model="person.names" type="text" class="form-control">
+          </div>
+
+          <div class="col-6">
+            <label class="form-label">Last Names</label>
+            <input v-model="person.last_names" type="text" class="form-control">
+          </div>
+
+          <div class="col-6">
+            <label class="form-label">Phone</label>
+            <input v-model="person.phone" type="text" class="form-control">
+          </div>
+
+          <div class="col-6">
+            <label class="form-label">Email</label>
+            <input v-model="person.email" type="email" class="form-control">
+          </div>
+
+          <div class="col-6">
+            <label class="form-label">Departments</label>
+            <select v-model="selDepartment" @change="listCities()" class="form-control" id="department">
+              <option value="" disabled>Select an option...</option>
+              <option v-for="department in departments" :value="department" :key="department.code">{{department.name}}</option>
+            </select>
+          </div>
+
+          <div class="col-6">
+            <label class="form-label">Cities</label>
+            <select v-model="selCity" class="form-control" id="city">
+              <option value="" disabled>Select an option...</option>
+              <option v-for="city in cities" :value="city.id" :key="city">{{city.name}}</option>
+            </select>
+          </div>
+
+          <div class="col-4">
+            <button id="btn" class="btn btn-primary" @click="createPerson && activeForm()">Request Ticket</button>
+          </div>
+          
+        </div>
+        
+      </div>
+
+      <div class="col-5" id="form-ticket-2">
+        <fieldset id="formRequest">
+          <h2 class="title">Request Ticket</h2><br><br>
+
+          <div class="row">
+            <div class="col-6">
+              <label class="form-label">Date</label>
+              <input v-model="ticket.date" type="date" class="form-control">
             </div>
-        </section>
-    </section>
-    
-    <section>
-      <form style="text-align:center;">
-        <h1 class="display-1" style="text-align:center; ">Request Ticket</h1>
-        <label>Date</label><input v-model="ticket.date" type="date" class="form-ticket-2"><br>
-        <label>Time</label><input v-model="ticket.time" type="time" class="form-ticket-2"><br>
 
-        <div class="col-6">
-          <div class="form-group">
-              <label>Dependence</label>
+            <div class="col-6">
+              <label class="form-label">Time</label>
+              <input v-model="ticket.time" type="time" class="form-control">            
+            </div>
+
+            <div class="col-6">
+              <label class="form-label">Dependence</label>
               <select v-model="dependence" @change="listSubdependences() && getCodeDependence()" class="form-control" id="dependence">
-                  <option value="" disabled>Select an option...</option>
-                  <option v-for="dependence in dependences" :value="dependence" :key="dependence.id">{{dependence.name}}</option>
-              </select>
-          </div>
-        </div>
+                <option value="" disabled>Select an option...</option>
+                <option v-for="dependence in dependences" :value="dependence" :key="dependence.id">{{dependence.name}}</option>
+              </select>            
+            </div>
 
-        <div class="col-6">
-          <div class="form-group">
-              <label>Subdependence</label>
+            <div class="col-6">
+              <label class="form-label">Subdependence</label>
               <select v-model="subdependence" @change="listUserBySID() && getCodeSubdependence()" class="form-control" id="subdependence">
-                  <option value="" disabled>Select an option...</option>
-                  <option v-for="subdependence in subdependences" :value="subdependence.id" :key="subdependence">{{subdependence.name}}</option>
-              </select>
-          </div>
-        </div>
+                <option value="" disabled>Select an option...</option>
+                <option v-for="subdependence in subdependences" :value="subdependence.id" :key="subdependence">{{subdependence.name}}</option>
+              </select>            
+            </div>
 
-        <div class="col-6">
-          <div class="form-group">
-              <label>Functionary</label>
+            <div class="col-6">
+              <label class="form-label">Functionary</label>
               <select v-model="userSID" class="form-control" id="userSID">
-                  <option value="" disabled>Select an option...</option>
-                  <option v-for="user in userBySID" :value="user.id" :key="user">{{user.names}} {{user.last_names}}</option>
-              </select>
-          </div>
-        </div>
+                <option value="" disabled>Select an option...</option>
+                <option v-for="user in userBySID" :value="user.id" :key="user">{{user.names}} {{user.last_names}}</option>
+              </select>            
+            </div>
 
-        <div class="col-6">
-          <div class="form-group">
-              <label>Subject</label>
+            <div class="col-6">
+              <label class="form-label">Subject</label>
               <select v-model="subject" class="form-control" id="userSID">
-                  <option value="" disabled>Select an option...</option>
-                  <option v-for="subject in subjects" :value="subject.id" :key="subject">{{subject.subject}}</option>
-              </select>
+                <option value="" disabled>Select an option...</option>
+                <option v-for="subject in subjects" :value="subject.id" :key="subject">{{subject.subject}}</option>
+              </select>            
+            </div>
+
+            <div class="col-12">
+              <label class="form-label">Description</label>
+              <input v-model="ticket.description" type="text" class="form-control">
+            </div>
+
+            <div class="col-3">
+              <button id="btn" class="btn btn-primary" @click="createTicket && activeFormRequest">Send</button>
+            </div>         
           </div>
-        </div>
-
-        <label>Description</label><input v-model="ticket.description" type="text" class="form-ticket-2"><br>
-
-        <button class="btn btn-secondary" @click="createTicket">Send</button>
-      </form>
-    </section>
+          
+        </fieldset>    
+      </div> 
+    </form>       
+  </section>     
 </template>
 
 <script>
@@ -152,7 +183,18 @@ export default {
     this.getCodeSubdependence();
     this.getCount();  
   },
+  computed: {
+    activeFormRequest() {
+      var activeForm = document.getElementById('formRequest');
+      activeForm.disabled = true;
+      return activeForm;   
+    }
+  },
   methods: {
+    activeForm(){
+      const form = document.getElementById('formRequest');
+      form.addEventListener("click", () => (form.disabled = true));
+    },
     async listCities() {
       if(!this.selDepartment){
         this.cities = []
@@ -352,5 +394,55 @@ export default {
 </script>
 
 <style>
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
 
+.row {
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
+}
+
+#btn {
+  margin-top: 20px;
+  align-content: center;
+  background-color: #004884;
+}
+
+#form-ticket-1 {
+  padding-top: 10px;
+  border: 1px solid #004884;
+  padding-bottom: 15px;
+  border-radius: 15px;
+  margin-right: 50px;
+}
+
+#form-ticket-2 {
+  padding-top: 10px;
+  border: 1px solid #004884;
+  padding-bottom: 15px;
+  border-radius: 15px;
+  margin-left: 30px;
+}
+
+.title {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.subtitle {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
 </style>
