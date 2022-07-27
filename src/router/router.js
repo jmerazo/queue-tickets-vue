@@ -1,7 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
 import Home from '@/views/Home.vue';
-import Login from '@/views/Users/Login.vue'
+import Login from '@/views/Users/Login.vue';
+import Register from '@/views/Users/Register.vue';
+import Panel from '@/views/Panel/Panel.vue'
 
 const routes = [
     {
@@ -16,6 +18,22 @@ const routes = [
         path: '/users/login',
         name: 'Login',
         component: Login,
+        meta: {
+            auth:false
+        }
+    },
+    {
+        path: '/user/create',
+        name: 'Register',
+        component: Register,
+        meta: {
+            auth:false
+        }
+    },
+    {
+        path: '/user/panel',
+        name: 'Panel',
+        component: Panel,
         meta: {
             auth:false
         }
