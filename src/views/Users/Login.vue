@@ -18,7 +18,7 @@
           </div>
 
           <div class="col-4">
-            <button id="btn" class="btn btn-primary">Send</button>
+            <button id="btn" class="btn btn-primary" @click="userLogin">Send</button>
           </div>          
         </div>        
       </div>
@@ -27,7 +27,7 @@
 </template>
 
 <script>
-//import axios from "axios";
+import axios from "axios";
 
 export default {
   components: {
@@ -47,10 +47,26 @@ export default {
 
   },
   methods: {
-    //userLogin(){
-    //    await axios.post()
-//
-    //}
+    async userLogin(){
+          axios.post("http://localhost:8888/apitickets-auth/user/auth", {
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({
+                  username: this.username,
+                  password: this.password
+              })              
+          }).then(async (response) => {
+              if(!response.ok) throw await response.json();
+              return response.json();
+          })
+          .then((data) => {
+              localStorage.setItem('token', data.token)
+              this.$router.push('http://localhost:8080/user/panel')
+          }).catch(err =>{
+            console.log(err)
+          });
+      },
     
   }
 };
