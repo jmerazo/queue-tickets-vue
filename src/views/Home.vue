@@ -142,6 +142,7 @@ export default {
   name: "Home-AQ",
   data() {
     return {
+      token: "",
       person: {
         document_type: "",
         document_number: "",
@@ -181,7 +182,20 @@ export default {
     this.listSubjects();
     this.getCodeDependence();
     this.getCodeSubdependence();
-    this.getCount();  
+    this.getCount();
+    
+    this.token = localStorage.getItem("token");
+
+    axios.post("http://localhost:8888/apitickets/user/auth", {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "JWT " + localStorage.getItem("token")
+      },
+    })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data)
+    })
   },
   computed: {
     activeFormRequest() {

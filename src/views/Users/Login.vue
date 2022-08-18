@@ -18,7 +18,7 @@
           </div>
 
           <div class="col-4">
-            <button id="btn" class="btn btn-primary" @click="userLogin">Send</button>
+            <button id="btn" class="btn btn-primary" @click="userLogin()">Send</button>
           </div>          
         </div>        
       </div>
@@ -36,37 +36,36 @@ export default {
   data() {
     return {
         username: "",
-        password: ""
-
+        password: "",
+        error: false
     };    
-  },
-  mounted() {
-
-  },
-  computed: {
-
   },
   methods: {
     async userLogin(){
-          axios.post("http://localhost:8888/apitickets-auth/user/auth", {
-              headers: {
-                  'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({
-                  username: this.username,
-                  password: this.password
-              })              
-          }).then(async (response) => {
-              if(!response.ok) throw await response.json();
-              return response.json();
-          })
-          .then((data) => {
-              localStorage.setItem('token', data.token)
-              this.$router.push('http://localhost:8080/user/panel')
-          }).catch(err =>{
-            console.log(err)
-          });
-      },
+      this.error = false;
+      const dataLogin = JSON.stringify({
+        username : this.username,
+        password : this.password
+      })
+
+      console.log("data login: ", dataLogin);
+      await axios.post("http://localhost:8888/apitickets-auth/user/auth", dataLogin, {
+          headers: {
+              'Content-Type': 'application/json'
+          }             
+      })
+      .then(async (response) => {
+          if(!response.ok) throw await response.json();
+          return response.json();
+      })
+      .then((data) => {
+          localStorage.setItem('token', data.token)
+          this.$router.push('/user/panel')
+      }).catch(err =>{
+        console.log(err)
+        this.error = true;
+      });
+  },
     
   }
 };

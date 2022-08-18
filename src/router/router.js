@@ -27,7 +27,7 @@ const routes = [
         name: 'Register',
         component: Register,
         meta: {
-            auth:false
+            auth:true
         }
     },
     {
@@ -35,7 +35,7 @@ const routes = [
         name: 'Panel',
         component: Panel,
         meta: {
-            auth:false
+            auth:true
         }
     }
 ]
@@ -46,8 +46,16 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
+    const token = localStorage.getItem("token")
+  
+    if (to.matched.some(record => record.meta.auth)){
+      if(!token){
+        console.log("No token", token);
+        next('/users/login')
+      }
+    }    
     next()
-})
+  })
 
 
 export default router
