@@ -4,7 +4,9 @@
             <h2 class="title" id="tf-1">Welcome</h2>
             <label id="tf-1">User</label>      
             <div class="col-8" id="form-ticket-1">
+              <div>
                 <h2 class="title">List Tickets</h2>
+              </div>                
 
                 <div class="row">
                     <div class="col-11" id="tab-1">
@@ -13,7 +15,7 @@
                                 <th>Date</th>
                                 <th>Time</th>
                                 <th>Ticket</th>
-                                <th>User</th>
+                                <th>Person</th>
                                 <th>Subject</th>
                                 <th>State</th>
                                 <th>Action</th>
@@ -21,6 +23,13 @@
                             <tr>
                                 <td>2022-07-27</td>
                                 <td>10:30</td>
+                                <td>SSA-SGU-1</td>
+                                <td>Dahana Saenz</td>
+                                <td>Información general</td>
+                                <td>Active</td>
+                                <td>
+                                  <button>e</button>
+                                </td>
                             </tr>
                         </table>                       
                     </div>          
@@ -76,8 +85,8 @@ export default {
 }
 
 #tf-1{
-    align-content: left;
-    justify-content: left;
+  align-content: left;
+  justify-content: left;
 }
 
 #btn {
@@ -104,10 +113,11 @@ export default {
 }
 
 #tab-1{
-    padding-top: 10px;
-    border: 1px solid #004884; 
-    border-top-left-radius: 25px;
-    border-top-right-radius: 25px;   
+  display: flex;
+  padding-top: 10px;
+  border: 1px solid #004884; 
+  border-top-left-radius: 25px;
+  border-top-right-radius: 25px;   
 }
 
 .title {

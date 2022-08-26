@@ -40,12 +40,6 @@ export default {
         error: false
     };    
   },
-  mounted() {
-
-  },
-  computed: {
-
-  },
   methods: {
     async userLogin(){
       this.error = false;
