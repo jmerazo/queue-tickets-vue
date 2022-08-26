@@ -1,6 +1,6 @@
 <template>
   <section class="container">
-    <form class="row">  
+    <form @submit.prevent="userLogin" class="row">  
       <div class="col-6" id="form-ticket-1">
         <h2 class="title">Log in</h2>
         <label class="subtitle">Enter your credentials to login</label><br>
@@ -18,7 +18,7 @@
           </div>
 
           <div class="col-4">
-            <button id="btn" class="btn btn-primary" @click="userLogin">Send</button>
+            <button id="btn" class="btn btn-primary" type="submit">Send</button>
           </div>          
         </div>        
       </div>
@@ -36,8 +36,8 @@ export default {
   data() {
     return {
         username: "",
-        password: ""
-
+        password: "",
+        error: false
     };    
   },
   mounted() {
@@ -48,26 +48,27 @@ export default {
   },
   methods: {
     async userLogin(){
-          axios.post("http://localhost:8888/apitickets-auth/user/auth", {
-              headers: {
-                  'Content-Type': 'application/json'
-              },
-              body: JSON.stringify({
-                  username: this.username,
-                  password: this.password
-              })              
-          }).then(async (response) => {
-              if(!response.ok) throw await response.json();
-              return response.json();
-          })
-          .then((data) => {
-              localStorage.setItem('token', data.token)
-              this.$router.push('http://localhost:8080/user/panel')
-          }).catch(err =>{
-            console.log(err)
-          });
-      },
-    
+      this.error = false;
+      const user = JSON.stringify({
+              username: this.username,
+              password: this.password
+      }) 
+      await axios.post("http://localhost:8888/apitickets-auth/user/auth", user, {
+          headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer`
+          }             
+      }).then(async (response) => {
+        localStorage.setItem('token', response.data.token);
+        this.$router.push('/user/panel');
+        if(!response.ok) throw await response.json();
+        //return response.json();
+      })
+      .catch(err =>{
+        console.log(err)
+        this.error = true;
+      });
+    }    
   }
 };
 </script>
