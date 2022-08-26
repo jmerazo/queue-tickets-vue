@@ -3,7 +3,9 @@ import { createRouter, createWebHistory } from 'vue-router';
 import Home from '@/views/Home.vue';
 import Login from '@/views/Users/Login.vue';
 import Register from '@/views/Users/Register.vue';
-import Panel from '@/views/Panel/Panel.vue'
+import Panel from '@/views/Panel/Panel.vue';
+import Admin from '@/views/Panel/Admin.vue'
+import UsersList from '@/views/Users/List.vue'
 
 const routes = [
     {
@@ -34,6 +36,22 @@ const routes = [
         path: '/user/panel',
         name: 'Panel',
         component: Panel,
+        meta: {
+            auth:true
+        }
+    },
+    {
+        path: '/user/panel/administrator',
+        name: 'admin',
+        component: Admin,
+        meta: {
+            auth:true
+        }
+    },
+    {
+        path: '/users/list',
+        name: 'usersList',
+        component: UsersList,
         meta: {
             auth:true
         }

@@ -1,44 +1,26 @@
 <template>
     <section class="container">
         <form class="row">
-            <h2 class="title" id="tf-1">Welcome</h2>
-            <label id="tf-1">User</label>      
-            <div class="col-8" id="form-ticket-1">
-              <div>
-                <h2 class="title">List Tickets</h2>
-              </div>                
+          <h2 class="title" id="tf-1">Welcome</h2>
+          <label id="tf-1">User</label> 
 
-                <div class="row">
-                    <div class="col-11" id="tab-1">
-                        <table class="table table-hover">
-                            <tr>
-                                <th>Date</th>
-                                <th>Time</th>
-                                <th>Ticket</th>
-                                <th>Person</th>
-                                <th>Subject</th>
-                                <th>State</th>
-                                <th>Action</th>
-                            </tr>
-                            <tr>
-                                <td>2022-07-27</td>
-                                <td>10:30</td>
-                                <td>SSA-SGU-1</td>
-                                <td>Dahana Saenz</td>
-                                <td>Información general</td>
-                                <td>Active</td>
-                                <td>
-                                  <button>e</button>
-                                </td>
-                            </tr>
-                        </table>                       
-                    </div>          
-                </div>                                
-            </div>
-            
-            <div class="col-2" id="form-ticket-2">
-                <h2>Calendar</h2>
-            </div>
+            <a class="btn btn-primary" id="card-item" href="/users/list">
+              <div class="card-body" id="card-body-item">
+                Users
+              </div>
+            </a>
+
+            <a class="btn btn-primary" id="card-item" href="">
+              <div class="card-body" id="card-body-item">
+                Areas
+              </div>
+            </a>
+
+            <a class="btn btn-primary" id="card-item" href="">
+              <div class="card-body" id="card-body-item">
+                Tickets
+              </div>
+            </a>
         </form> 
     </section>
 </template>
@@ -47,7 +29,7 @@
 export default {
   components: {
   },
-  name: "Users-List",
+  name: "ListTickets-AQ",
   data() {
     return {
     };    
@@ -134,5 +116,22 @@ export default {
   align-items: center;
   justify-content: center;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+#card-item {
+  display: flex;
+  align-items: center;
+  justify-items: left;
+  justify-content: left;
+  width: 150px;
+  height: 100px;
+  margin: 10px;
+}
+
+#card-body-item {
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  justify-content: center;
 }
 </style>
