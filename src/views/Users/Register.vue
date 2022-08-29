@@ -1,7 +1,12 @@
 <template>
   <section class="container">
 
-    <form class="row">     
+    <form class="row">
+      
+      <div id="btn-back">
+        <a id="abtn-1" href="/user/panel/administrator" class="btn btn-primary" type="button">Back</a>
+        <a id="abtn-2" href="/users/list" class="btn btn-primary" type="button">List</a>       
+      </div>
          
         <div class="col-6" id="form-ticket-1">
             <h2 class="title">User Register</h2>
@@ -184,6 +189,17 @@ export default {
   margin-top: 20px;
   align-content: center;
   background-color: #004884;
+}
+
+#btn-back {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  float: top;
+  overflow: auto;
+}
+
+#abtn-2 {
+  margin-left: 10px;
 }
 
 #form-ticket-1 {

@@ -7,8 +7,9 @@
           </div>
           
           <div id="btn-back">
-            <a href="/user/panel/administrator" class="btn btn-primary" type="button">Volver</a>      
-          </div>            
+            <a id="abtn-1" href="/user/panel/administrator" class="btn btn-primary" type="button">Back</a>
+            <a id="abtn-2" href="/user/create" class="btn btn-primary" type="button">Register</a>       
+          </div>
                             
           <div class="row">
             <div>
@@ -40,10 +41,10 @@
                           <td>{{user.subdependence_id}}</td>
                           <td>{{user.status}}</td>
                           <td>
-                            <a>&#128466;</a>
-                            <a :value="user" :key="user.id" type="button" @click="userDelete(user.id)">&#128465;</a>
-                            <a>&#128272;</a>
-                            <a>&#128259;</a>
+                            <a type="submit"><router-link :to="{name: 'userCreate', params: {id: user.id}}">&#128466;</router-link></a>
+                            <a type="submit" @click="userDelete()"><router-link :to="{name: 'userDelete', params: {id: user.id}}">&#128465;</router-link></a>
+                            <a type="submit"><router-link :to="{name: 'userUpdate', params: {id: user.id, document_type: user.document_type, document_number: user.document_number, names: user.names, last_names: user.last_names, phone: user.phone, email: user.email, dependence_id: user.dependence_id, subdependence_id: user.subdependence_id}}">&#128259;</router-link></a>
+                            <a type="submit"><router-link :to="{name: 'passwordUpdate', params: {id: user.id, email: user.email}}">&#128272;</router-link></a>
                             <a>&#9940;</a>
                           </td>
                       </tr>
@@ -65,7 +66,7 @@ export default {
   data() {
     return {
       users_list: [],
-      udelete: ""
+      udelete: null
     };    
   },
   mounted() {
@@ -88,7 +89,19 @@ export default {
       });
     },
     async userDelete(){
-      await axios.delete(`http://localhost:8888/apitickets/user/delete/${this.udelete}`)
+      this.udelete = this.$route.params.id;
+      await axios.delete(`http://localhost:8888/apitickets/user/delete/${this.udelete}`,{
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
+          }
+        })
+        .then((Response) => {
+          if(!Response){
+            console.log("Error")
+          }
+          this.$router.push('/users/list');
+        });
     }
     
   }
@@ -127,6 +140,10 @@ export default {
   margin-bottom: 10px;
   float: top;
   overflow: auto;
+}
+
+#abtn-2 {
+  margin-left: 10px;
 }
 
 #tab-1{

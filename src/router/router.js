@@ -6,6 +6,9 @@ import Register from '@/views/Users/Register.vue';
 import Panel from '@/views/Panel/Panel.vue';
 import Admin from '@/views/Panel/Admin.vue'
 import UsersList from '@/views/Users/List.vue'
+import UserAuthCreate from '@/views/Users/RegisterAuth.vue'
+import UserUpdate from '@/views/Users/Update.vue'
+import PasswordUpdate from '@/views/Users/AuthPassUpdate.vue'
 
 const routes = [
     {
@@ -52,6 +55,37 @@ const routes = [
         path: '/users/list',
         name: 'usersList',
         component: UsersList,
+        meta: {
+            auth:true
+        }
+    },
+    {
+        path: '/user/delete/:id',
+        name: 'userDelete',
+        meta: {
+            auth:true
+        }
+    },
+    {
+        path: '/user/add/:id',
+        name: 'userCreate',
+        component: UserAuthCreate,
+        meta: {
+            auth:true
+        }
+    },
+    {
+        path: '/user/update/:id',
+        name: 'userUpdate',
+        component: UserUpdate,
+        meta: {
+            auth:true
+        }
+    },
+    {
+        path: '/user/auth/password/update/:id',
+        name: 'passwordUpdate',
+        component: PasswordUpdate,
         meta: {
             auth:true
         }
