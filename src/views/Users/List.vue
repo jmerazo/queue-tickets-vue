@@ -1,68 +1,95 @@
 <template>
     <section class="container">
-        <form class="row">
+        <form class="ctn-form">
+          <div>
             <h2 class="title" id="tf-1">Welcome</h2>
-            <label id="tf-1">User</label>      
-            <div class="col-8" id="form-ticket-1">
-              <div>
-                <h2 class="title">List Tickets</h2>
-              </div>                
-
-                <div class="row">
-                    <div class="col-11" id="tab-1">
-                        <table class="table table-hover">
-                            <tr>
-                                <th>Date</th>
-                                <th>Time</th>
-                                <th>Ticket</th>
-                                <th>Person</th>
-                                <th>Subject</th>
-                                <th>State</th>
-                                <th>Action</th>
-                            </tr>
-                            <tr>
-                                <td>2022-07-27</td>
-                                <td>10:30</td>
-                                <td>SSA-SGU-1</td>
-                                <td>Dahana Saenz</td>
-                                <td>Información general</td>
-                                <td>Active</td>
-                                <td>
-                                  <button>e</button>
-                                </td>
-                            </tr>
-                        </table>                       
-                    </div>          
-                </div>                                
-            </div>
-            
-            <div class="col-2" id="form-ticket-2">
-                <h2>Calendar</h2>
-            </div>
+            <label id="tf-1">User</label>
+          </div>
+          
+          <div id="btn-back">
+            <a href="/user/panel/administrator" class="btn btn-primary" type="button">Volver</a>      
+          </div>            
+                            
+          <div class="row">
+            <div>
+              <h2 class="title">Users</h2>
+            </div> 
+              <div class="col-11" id="tab-1">
+                  <table class="table">
+                    <thead class="thead-dark">
+                      <tr id="tr-title">
+                          <th>Document</th>
+                          <th>Number</th>
+                          <th>Names</th>
+                          <th>Phone</th>
+                          <th>Email</th>
+                          <th>Dependence</th>
+                          <th>Subdependence</th>
+                          <th>Status</th>
+                          <th>Actión</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr v-for="user in users_list" :value="user.id" :key="user.id">
+                          <td>{{user.document_type}}</td>
+                          <td>{{user.document_number}}</td>
+                          <td>{{user.names +" "+ user.last_names}}</td>
+                          <td>{{user.phone}}</td>
+                          <td>{{user.email}}</td>
+                          <td>{{user.dependence_id}}</td>
+                          <td>{{user.subdependence_id}}</td>
+                          <td>{{user.status}}</td>
+                          <td>
+                            <a>&#128466;</a>
+                            <a :value="user" :key="user.id" type="button" @click="userDelete(user.id)">&#128465;</a>
+                            <a>&#128272;</a>
+                            <a>&#128259;</a>
+                            <a>&#9940;</a>
+                          </td>
+                      </tr>
+                    </tbody>
+                  </table>                       
+              </div>          
+          </div>                               
         </form> 
     </section>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   components: {
   },
   name: "Users-List",
   data() {
     return {
+      users_list: [],
+      udelete: ""
     };    
   },
   mounted() {
-
+    this.usersList();
   },
   computed: {
 
   },
   methods: {
-    //userLogin(){
-    //    await axios.post()
-//
-    //}
+    async usersList(){
+      await axios.get("http://localhost:8888/apitickets/users", {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*"
+        }
+      })
+      .then((Response) => {
+        console.log(Response.data)
+        this.users_list = Response.data;
+      });
+    },
+    async userDelete(){
+      await axios.delete(`http://localhost:8888/apitickets/user/delete/${this.udelete}`)
+    }
     
   }
 };
@@ -76,6 +103,8 @@ export default {
   justify-content: center;
   padding-top: 20px;
   padding-bottom: 20px;
+  /*overflow: hidden;*/
+  /*clear: both;*/
 }
 
 .row {
@@ -89,35 +118,22 @@ export default {
   justify-content: left;
 }
 
-#btn {
-  margin-top: 20px;
-  align-content: center;
-  background-color: #004884;
+#tr-title {
+  text-align: center;
 }
 
-#form-ticket-1 {
-  padding-top: 10px;
-  border: 1px solid #004884;
-  padding-bottom: 15px;
-  border-radius: 15px;
-  margin-right: 50px;
-  margin-top: 20px;
-}
-
-#form-ticket-2 {
-  padding-top: 10px;
-  border: 1px solid #004884;
-  padding-bottom: 15px;
-  border-radius: 15px;
-  margin-left: 30px;
+#btn-back {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  float: top;
+  overflow: auto;
 }
 
 #tab-1{
   display: flex;
   padding-top: 10px;
   border: 1px solid #004884; 
-  border-top-left-radius: 25px;
-  border-top-right-radius: 25px;   
+  border-radius: 25px; 
 }
 
 .title {
