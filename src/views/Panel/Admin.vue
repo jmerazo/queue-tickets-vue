@@ -2,7 +2,8 @@
     <section class="container">
         <form class="row">
           <h2 class="title" id="tf-1">Welcome</h2>
-          <label id="tf-1">User</label> 
+          <input type="text" v-model="username">
+          <label id="tf-1" for="username" v-show="this.username"></label>
 
             <a class="btn btn-primary" id="card-item" href="/users/list">
               <div class="card-body" id="card-body-item">
@@ -32,6 +33,7 @@ export default {
   name: "ListTickets-AQ",
   data() {
     return {
+      username: this.$route.params.username
     };    
   },
   mounted() {

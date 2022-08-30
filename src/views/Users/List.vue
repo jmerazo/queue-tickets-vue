@@ -39,13 +39,15 @@
                           <td>{{user.email}}</td>
                           <td>{{user.dependence_id}}</td>
                           <td>{{user.subdependence_id}}</td>
-                          <td>{{user.status}}</td>
+                          <td v-if="user.status == 1">Activo</td>
+                          <td v-if="user.status == 0">Inactivo</td>
                           <td>
-                            <a type="submit"><router-link :to="{name: 'userCreate', params: {id: user.id}}">&#128466;</router-link></a>
-                            <a type="submit" @click="userDelete()"><router-link :to="{name: 'userDelete', params: {id: user.id}}">&#128465;</router-link></a>
-                            <a type="submit"><router-link :to="{name: 'userUpdate', params: {id: user.id, document_type: user.document_type, document_number: user.document_number, names: user.names, last_names: user.last_names, phone: user.phone, email: user.email, dependence_id: user.dependence_id, subdependence_id: user.subdependence_id}}">&#128259;</router-link></a>
-                            <a type="submit"><router-link :to="{name: 'passwordUpdate', params: {id: user.id, email: user.email}}">&#128272;</router-link></a>
-                            <a>&#9940;</a>
+                            <a title="Add" type="submit"><router-link :to="{name: 'userCreate', params: {id: user.id}}">&#128466;</router-link></a>
+                            <a title="Delete" type="submit" @click="userDelete()"><router-link :to="{name: 'userDelete', params: {id: user.id}}">&#128465;</router-link></a>
+                            <a title="Update" type="submit"><router-link :to="{name: 'userUpdate', params: {id: user.id, document_type: user.document_type, document_number: user.document_number, names: user.names, last_names: user.last_names, phone: user.phone, email: user.email, dependence_id: user.dependence_id, subdependence_id: user.subdependence_id}}">&#128259;</router-link></a>
+                            <a title="Change Password" type="submit"><router-link :to="{name: 'passwordUpdate', params: {id: user.id, email: user.email}}">&#128272;</router-link></a>
+                            <a title="Deactivate user" type="submit" @click="statusUpdate()" v-if="user.status == 1"><router-link :to="{name: 'statusUpdate', params: {id: user.id, status: 0}}">&#9940;</router-link></a>
+                            <a title="Activate user" type="submit" @click="statusUpdate()" v-if="user.status == 0"><router-link :to="{name: 'statusUpdate', params: {id: user.id, status: 1}}">&#9989;</router-link></a>
                           </td>
                       </tr>
                     </tbody>
@@ -58,6 +60,7 @@
 
 <script>
 import axios from "axios";
+import dictionary from '@/helpers/dictionary'
 
 export default {
   components: {
@@ -66,14 +69,16 @@ export default {
   data() {
     return {
       users_list: [],
-      udelete: null
+      udelete: null,
+      dependences: dictionary.dependences,
+      subdependences: dictionary.subdependences,
+      stat: dictionary.status
     };    
   },
   mounted() {
     this.usersList();
   },
   computed: {
-
   },
   methods: {
     async usersList(){
@@ -84,7 +89,7 @@ export default {
         }
       })
       .then((Response) => {
-        console.log(Response.data)
+        console.log(Response.data);
         this.users_list = Response.data;
       });
     },
@@ -102,8 +107,26 @@ export default {
           }
           this.$router.push('/users/list');
         });
+    },
+    async statusUpdate(){
+      this.uid = this.$route.params.id;
+      const status = JSON.stringify({
+        status: this.$route.params.status
+      })        
+      console.log("Status: ", status)
+      await axios.put(`http://localhost:8888/apitickets-auth/user/status/update/${this.uid}`, status, {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
+          }
+        })
+        .then((Response) => {
+          if(!Response){
+            console.log("Error")
+          }
+          this.$router.push('/users/list');
+        });
     }
-    
   }
 };
 

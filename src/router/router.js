@@ -89,6 +89,13 @@ const routes = [
         meta: {
             auth:true
         }
+    },
+    {
+        path: '/user/status/update/:id',
+        name: 'statusUpdate',
+        meta: {
+            auth:true
+        }
     }
 ]
 

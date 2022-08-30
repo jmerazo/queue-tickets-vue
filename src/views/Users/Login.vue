@@ -54,14 +54,33 @@ export default {
           }             
       }).then(async (response) => {
         localStorage.setItem('token', response.data.token);
-        this.$router.push('/user/panel');
-        if(!response.ok) throw await response.json();
-        //return response.json();
+        const rol = response.data.rol_id;
+        const status = response.data.status;
+        const username = response.data.username;
+        const uid = response.data.username;
+
+        if(status == 1){
+          if(rol == 1 || rol == 2){
+            this.$router.push('/user/panel/administrator', {username: username, rol_id: rol, status: status, user_id: uid});
+          }else{
+            this.$router.push('/user/panel', {username: username, rol_id: rol, status: status, user_id: uid});
+          }
+        }else{
+          console.log("User inactivate")
+          this.username = "";
+          this.password = "";
+          this.salir();
+        }
+        
       })
       .catch(err =>{
         console.log(err)
         this.error = true;
       });
+    },
+    salir() {
+      localStorage.removeItem("token")
+      this.$router.push('/users/login')
     }    
   }
 };
