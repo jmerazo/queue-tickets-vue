@@ -1,0 +1,1 @@
+States vue: https://elabismodenull.wordpress.com/2017/05/31/vuejs-los-estados-y-getters-en-vuex/

@@ -184,8 +184,7 @@ export default {
     this.getCodeSubdependence();
     this.getCount();
     
-    this.token = localStorage.getItem("token");
-
+    this.token = localStorage.getItem("token")
     axios.post("http://localhost:8888/apitickets/user/auth", {
       headers: {
         "Content-Type": "application/json",
