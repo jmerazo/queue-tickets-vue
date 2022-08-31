@@ -1,72 +1,81 @@
 <template>
-    <section class="container">
-        <form class="row">
-            <h2 class="title" id="tf-1">Welcome</h2>
-            <label id="tf-1">User</label>      
-            <div class="col-8" id="form-ticket-1">
-              <div>
-                <h2 class="title">List Tickets</h2>
-              </div>                
+  <section class="container">
+    <form class="row">
+      <h2 class="title" id="tf-1">Welcome</h2>
+      <label id="tf-1">{{ this.username }}</label>
+        <div>
+          <h2 class="title">List Tickets</h2>
+        </div>
 
-                <div class="row">
-                    <div class="col-11" id="tab-1">
-                        <table class="table table-hover">
-                            <tr>
-                                <th>Date</th>
-                                <th>Time</th>
-                                <th>Ticket</th>
-                                <th>Person</th>
-                                <th>Subject</th>
-                                <th>State</th>
-                                <th>Action</th>
-                            </tr>
-                            <tr>
-                                <td>2022-07-27</td>
-                                <td>10:30</td>
-                                <td>SSA-SGU-1</td>
-                                <td>Dahana Saenz</td>
-                                <td>Información general</td>
-                                <td>Active</td>
-                                <td>
-                                  <button>e</button>
-                                </td>
-                            </tr>
-                        </table>                       
-                    </div>          
-                </div>                                
-            </div>
-            
-            <div class="col-2" id="form-ticket-2">
-                <h2>Calendar</h2>
-            </div>
-        </form> 
-    </section>
+        <div class="row">
+          <div class="col-11" id="tab-1">
+            <table class="table table-hover">
+              <tr>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Ticket</th>
+                <th>Person</th>
+                <th>Subject</th>
+                <th>State</th>
+                <th>Action</th>
+              </tr>
+              <tr v-for="ticket in tickets" :value="ticket.id" :key="ticket.id">
+                <td>{{ ticket.date }}</td>
+                <td>{{ ticket.time }}</td>
+                <td>{{ ticket.prefix + ticket.count }}</td>
+                <td>{{ ticket.person_id }}</td>
+                <td>{{ ticket.description }}</td>
+                <td v-if="ticket.status == 1">Activate</td>
+                <td v-if="ticket.status == 0">Inactivate</td>
+                <td>
+                  <button>e</button>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+    </form>
+  </section>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   components: {
   },
   name: "ListTickets-AQ",
   data() {
     return {
-    };    
+      username: this.$route.params.username,
+      tickets: []
+    };
   },
   mounted() {
-
+    this.listTickets();
   },
   computed: {
 
   },
   methods: {
-    //userLogin(){
-    //    await axios.post()
-//
-    //}
-    
+    async listTickets() {
+      const uid = this.$route.params.user_id;
+      if (!uid) {
+        this.tickets = ""
+      } else {
+        await axios.get(`http://localhost:8888/apitickets/tickets/list/${uid}`, {
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*"
+          }
+        })
+          .then((Response) => {
+            this.tickets = Response.data;
+          });
+      }
+    }
   }
 };
-
 </script>
 
 <style>
@@ -84,7 +93,7 @@ export default {
   justify-content: center;
 }
 
-#tf-1{
+#tf-1 {
   align-content: left;
   justify-content: left;
 }
@@ -112,12 +121,12 @@ export default {
   margin-left: 30px;
 }
 
-#tab-1{
+#tab-1 {
   display: flex;
   padding-top: 10px;
-  border: 1px solid #004884; 
+  border: 1px solid #004884;
   border-top-left-radius: 25px;
-  border-top-right-radius: 25px;   
+  border-top-right-radius: 25px;
 }
 
 .title {

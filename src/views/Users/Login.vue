@@ -57,13 +57,20 @@ export default {
         const rol = response.data.rol_id;
         const status = response.data.status;
         const username = response.data.username;
-        const uid = response.data.username;
+        const uid = response.data.user_id;
 
         if(status == 1){
           if(rol == 1 || rol == 2){
-            this.$router.push('/user/panel/administrator', {username: username, rol_id: rol, status: status, user_id: uid});
+            console.log("Login username: ", username);
+            this.$router.push({
+              name: 'admin',
+              params: {username: username, rol_id: rol, status: status, user_id: uid}
+            })
           }else{
-            this.$router.push('/user/panel', {username: username, rol_id: rol, status: status, user_id: uid});
+            this.$router.push({
+              name: 'Panel',
+              params: {username: username, rol_id: rol, status: status, user_id: uid}
+            })
           }
         }else{
           console.log("User inactivate")

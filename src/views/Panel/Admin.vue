@@ -2,8 +2,7 @@
     <section class="container">
         <form class="row">
           <h2 class="title" id="tf-1">Welcome</h2>
-          <input type="text" v-model="username">
-          <label id="tf-1" for="username" v-show="this.username"></label>
+          <label id="tf-1" for="username">{{this.username}}</label>
 
             <a class="btn btn-primary" id="card-item" href="/users/list">
               <div class="card-body" id="card-body-item">
@@ -37,16 +36,12 @@ export default {
     };    
   },
   mounted() {
-
+    console.log(this.$route.params)    
   },
   computed: {
 
   },
   methods: {
-    //userLogin(){
-    //    await axios.post()
-//
-    //}
     
   }
 };
