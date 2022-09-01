@@ -27,6 +27,7 @@
 
 <script>
 export default {
+
   components: {
   },
   name: "ListTickets-AQ",
