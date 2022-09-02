@@ -1,11 +1,6 @@
 <template>
     <section class="container">
-        <form class="ctn-form">
-          <div>
-            <h2 class="title" id="tf-1">Welcome</h2>
-            <label id="tf-1">User</label>
-          </div>
-          
+        <form class="ctn-form">          
           <div id="btn-back">
             <a id="abtn-1" href="/user/panel/administrator" class="btn btn-primary" type="button">Back</a>
             <a id="abtn-2" href="/user/create" class="btn btn-primary" type="button">Register</a>       
@@ -37,8 +32,8 @@
                           <td>{{user.names +" "+ user.last_names}}</td>
                           <td>{{user.phone}}</td>
                           <td>{{user.email}}</td>
-                          <td>{{user.dependence_id}}</td>
-                          <td>{{user.subdependence_id}}</td>
+                          <td>{{user.dname}}</td>
+                          <td>{{user.sname}}</td>
                           <td v-if="user.status == 1">Activo</td>
                           <td v-if="user.status == 0">Inactivo</td>
                           <td>
@@ -90,6 +85,7 @@ export default {
       })
       .then((Response) => {
         console.log(Response.data);
+        console.log("Users by: ", Response.data)
         this.users_list = Response.data;
       });
     },

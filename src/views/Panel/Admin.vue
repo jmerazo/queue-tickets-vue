@@ -2,7 +2,7 @@
     <section class="container">
         <form class="row">
           <h2 class="title" id="tf-1">Welcome</h2>
-          <label id="tf-1" for="username">{{this.username}}</label>
+          <label>{{ this.names +' '+this.last_names }}</label>
 
             <a class="btn btn-primary" id="card-item" href="/users/list">
               <div class="card-body" id="card-body-item">
@@ -26,24 +26,52 @@
 </template>
 
 <script>
+//import store from '@/store/store'
+import axios from "axios";
+
 export default {
 
   components: {
   },
   name: "ListTickets-AQ",
-  data() {
+  data(){
     return {
-      username: this.$route.params.username
-    };    
-  },
+      username:  this.$route.params.username,
+      names: "",
+      last_names: "",
+      uid: localStorage.getItem('user_id')
+    }    
+  }, 
+  //setup(){    
+  //  var state = store.state.user_log;
+  //  console.log("User state: ", state)
+  //  return { state };
+  //},
   mounted() {
-    console.log(this.$route.params)    
+    this.userById();   
+    console.log("Localstorage user: ", localStorage.getItem('user_id')); 
   },
   computed: {
 
   },
   methods: {
-    
+    async userById(){
+      if(!this.uid){
+          this.names = ""
+      }else{
+          await axios.get(`http://localhost:8888/apitickets/user/search/${this.uid}`, {
+          headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*"
+          }
+          })
+          .then((Response) => {
+              console.log("Store response username: ", Response.data)
+              this.names = Response.data[0].names;
+              this.last_names = Response.data[0].last_names;
+          });
+      }
+    }    
   }
 };
 

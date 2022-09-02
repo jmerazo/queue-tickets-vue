@@ -2,7 +2,7 @@
   <section class="container">
     <form class="row">
       <h2 class="title" id="tf-1">Welcome</h2>
-      <label id="tf-1">{{ this.username }}</label>
+      <label>{{ this.names +' '+this.last_names }}</label>
         <div>
           <h2 class="title">List Tickets</h2>
         </div>
@@ -23,7 +23,7 @@
                 <td>{{ ticket.date }}</td>
                 <td>{{ ticket.time }}</td>
                 <td>{{ ticket.prefix + ticket.count }}</td>
-                <td>{{ ticket.person_id }}</td>
+                <td>{{ ticket.names +' '+ticket.last_names }}</td>
                 <td>{{ ticket.description }}</td>
                 <td v-if="ticket.status == 1">Activate</td>
                 <td v-if="ticket.status == 0">Inactivate</td>
@@ -47,11 +47,14 @@ export default {
   name: "ListTickets-AQ",
   data() {
     return {
-      username: this.$route.params.username,
+      uid: localStorage.getItem('user_id'),
+      names: "",
+      last_names: "",
       tickets: []
     };
   },
   mounted() {
+    this.userById();  
     this.listTickets();
   },
   computed: {
@@ -59,18 +62,36 @@ export default {
   },
   methods: {
     async listTickets() {
-      const uid = this.$route.params.user_id;
-      if (!uid) {
+      if (!this.uid) {
         this.tickets = ""
       } else {
-        await axios.get(`http://localhost:8888/apitickets/tickets/list/${uid}`, {
+        await axios.get(`http://localhost:8888/apitickets/tickets/list/${this.uid}`, {
           headers: {
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*"
           }
         })
           .then((Response) => {
+            console.log("Tickets iner: ", Response.data);
             this.tickets = Response.data;
+          });
+      }
+    },
+    async userById(){
+      if(!this.uid){
+          this.names = ""
+          this.last_names = ""
+      }else{
+          await axios.get(`http://localhost:8888/apitickets/user/search/${this.uid}`, {
+          headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*"
+          }
+          })
+          .then((Response) => {
+              console.log("Store response username: ", Response.data)
+              this.names = Response.data[0].names;
+              this.last_names = Response.data[0].last_names;
           });
       }
     }

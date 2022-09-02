@@ -1,21 +1,18 @@
 import Vuex from 'vuex'
-import Vue from 'vue'
+import { createApp } from 'vue'
 
-Vue.use(Vuex)
+createApp().use(Vuex)
+
 
 export default new Vuex.Store({
     state: { // data
-        dependences: []
+
     },
     getters: { // computed properties
-        ticketsCount(){
 
-        }
     },
     actions: { // make the call
-        fetchDependences(){
 
-        }
     },
     mutations: { // update
 

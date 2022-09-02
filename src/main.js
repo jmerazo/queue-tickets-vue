@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-import Vuex from 'vuex'
+import Vuex from '@/store/store'
 import App from './App.vue'
 import router from './router/router'
 import 'bootstrap'

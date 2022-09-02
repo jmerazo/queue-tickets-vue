@@ -28,6 +28,7 @@
 
 <script>
 import axios from "axios";
+import store from "@/store/store";
 
 export default {
   components: {
@@ -37,8 +38,16 @@ export default {
     return {
         username: "",
         password: "",
-        error: false
+        error: false,
+        rol: null,
+        status: null,
+        un: null,
+        userid: null
     };    
+  }, 
+  setup(){    
+    var state = store.state.user_log;
+    return { state };
   },
   methods: {
     async userLogin(){
@@ -54,22 +63,27 @@ export default {
           }             
       }).then(async (response) => {
         localStorage.setItem('token', response.data.token);
-        const rol = response.data.rol_id;
-        const status = response.data.status;
-        const username = response.data.username;
-        const uid = response.data.user_id;
+        this.rol = response.data.rol_id;
+        this.status = response.data.status;
+        this.un = response.data.username;
+        this.userid = response.data.user_id;
+        store.state.user_log = this.un;
+        console.log("Login state user: ",store.state.user_log)
+        store.state.user_id = this.userid;
+        console.log("Login id user: ",store.state.user_id);
+        localStorage.setItem('user_id', response.data.user_id);        
 
-        if(status == 1){
-          if(rol == 1 || rol == 2){
-            console.log("Login username: ", username);
+        if(this.status == 1){
+          if(this.rol == 1 || this.rol == 2){
+            console.log("Login username: ", this.un);
             this.$router.push({
               name: 'admin',
-              params: {username: username, rol_id: rol, status: status, user_id: uid}
+              params: {username: this.un, rol_id: this.rol, status: this.status, user_id: this.userid},
             })
           }else{
             this.$router.push({
               name: 'Panel',
-              params: {username: username, rol_id: rol, status: status, user_id: uid}
+              params: {username: this.un, rol_id: this.rol, status: this.status, user_id: this.userid}
             })
           }
         }else{
