@@ -38,7 +38,24 @@
               </li>
 
               <li class="nav-item">
-                <a class="nav-item nav-link btn btn-light" href="/users/login" id="txt-nav">Login</a>
+                <a class="nav-item nav-link btn btn-light" href="#" id="txt-nav">Data</a>
+              </li>
+              <li class="nav-item">
+                <div class="dropdown dropstart">
+                  <button type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split nav-item nav-link" id="btncircle" data-bs-toggle="dropdown">
+                    J
+                    <span class="caret"></span>
+                  </button>
+                  <ul class="dropdown-menu" role="menu" aria-labelledby="btncircle">
+                    <li v-show="uid"><h6>{{ this.names +' '+this.last_names }}</h6></li>
+                    <li v-show="!uid"><a class="dropdown-item" href="/users/login">Login</a></li>
+                    <li v-show="this.rol == 1 || this.rol == 2 && uid"><a class="dropdown-item" href="/user/panel">Panel</a></li>
+                    <li v-show="this.rol != 1 || this.rol != 2 && uid"><a class="dropdown-item" href="/user/panel/administrator">Panel</a></li>
+                    <li v-show="uid"><a class="dropdown-item" href="#">Perfil</a></li>
+                    <li class="divider"></li>
+                    <li v-show="uid"><a class="dropdown-item" type="button" @click="logOut">Log out</a></li>
+                  </ul>
+                </div>                                 
               </li>          
             </ul>
           </div>
@@ -47,8 +64,44 @@
   </header>
 </template>
 <script>
+import axios from "axios";
 export default {
-  name: "MenuTop"
+  name: "MenuTop",
+  data(){
+    return {
+      names: "",
+      last_names: "",
+      rol: localStorage.getItem('rol'),
+      uid: localStorage.getItem('user_id')
+    }    
+  },
+  mounted() {
+    this.userById();
+  }, 
+  methods: {
+    async userById(){
+      if(!this.uid){
+          this.names = ""
+      }else{
+          await axios.get(`http://localhost:8888/apitickets/user/search/${this.uid}`, {
+          headers: {
+              "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*"
+          }
+          })
+          .then((Response) => {
+              console.log("Store response username: ", Response.data)
+              this.names = Response.data[0].names;
+              this.last_names = Response.data[0].last_names;
+          });
+      }
+    },
+    logOut() {
+      localStorage.removeItem("token")
+      localStorage.removeItem('user_id')
+      this.$router.push('/users/login')
+    }   
+  }
 }
 </script>
 <style>
@@ -64,6 +117,17 @@ export default {
   width: 100%;
   margin-left: 30px;
   margin-right: 30px;
+}
+
+#btncircle{
+  width: 40px;
+  height: 40px;
+  padding: 6px 0px;
+  border-radius: 35px;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.42857;
+  border: 1px solid #54426b;
 }
 
 #txt-nav-log{

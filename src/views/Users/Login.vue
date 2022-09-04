@@ -18,7 +18,7 @@
           </div>
 
           <div class="col-4">
-            <button id="btn" class="btn btn-primary" type="submit">Send</button>
+            <button id="btn" class="btn" type="submit">Send</button>
           </div>          
         </div>        
       </div>
@@ -71,7 +71,8 @@ export default {
         console.log("Login state user: ",store.state.user_log)
         store.state.user_id = this.userid;
         console.log("Login id user: ",store.state.user_id);
-        localStorage.setItem('user_id', response.data.user_id);        
+        localStorage.setItem('user_id', response.data.user_id);
+        localStorage.setItem('rol', response.data.rol);        
 
         if(this.status == 1){
           if(this.rol == 1 || this.rol == 2){

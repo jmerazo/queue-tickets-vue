@@ -1,8 +1,6 @@
 <template>
   <section class="container">
-
-    <form class="row">     
-         
+    <form class="row">   
       <div class="col-6" id="form-ticket-1">
         <h2 class="title">Tickets</h2>
         <label class="subtitle">Fill out the form</label><br>
@@ -63,72 +61,11 @@
           </div>
 
           <div class="col-4">
-            <button id="btn" class="btn btn-primary" @click="createPerson && activeForm()">Request Ticket</button>
-          </div>
-          
+            <a type="submit" id="btn" class="btn" @click="createPerson" href="/ticket/request">Request Ticket</a>
+          </div>          
         </div>
         
       </div>
-
-      <div class="col-5" id="form-ticket-2">
-        <fieldset id="formRequest">
-          <h2 class="title">Request Ticket</h2><br><br>
-
-          <div class="row">
-            <div class="col-6">
-              <label class="form-label">Date</label>
-              <input v-model="ticket.date" type="date" class="form-control">
-            </div>
-
-            <div class="col-6">
-              <label class="form-label">Time</label>
-              <input v-model="ticket.time" type="time" class="form-control">            
-            </div>
-
-            <div class="col-6">
-              <label class="form-label">Dependence</label>
-              <select v-model="dependence" @change="listSubdependences() && getCodeDependence()" class="form-control" id="dependence">
-                <option value="" disabled>Select an option...</option>
-                <option v-for="dependence in dependences" :value="dependence" :key="dependence.id">{{dependence.name}}</option>
-              </select>            
-            </div>
-
-            <div class="col-6">
-              <label class="form-label">Subdependence</label>
-              <select v-model="subdependence" @change="listUserBySID() && getCodeSubdependence()" class="form-control" id="subdependence">
-                <option value="" disabled>Select an option...</option>
-                <option v-for="subdependence in subdependences" :value="subdependence.id" :key="subdependence">{{subdependence.name}}</option>
-              </select>            
-            </div>
-
-            <div class="col-6">
-              <label class="form-label">Functionary</label>
-              <select v-model="userSID" class="form-control" id="userSID">
-                <option value="" disabled>Select an option...</option>
-                <option v-for="user in userBySID" :value="user.id" :key="user">{{user.names}} {{user.last_names}}</option>
-              </select>            
-            </div>
-
-            <div class="col-6">
-              <label class="form-label">Subject</label>
-              <select v-model="subject" class="form-control" id="userSID">
-                <option value="" disabled>Select an option...</option>
-                <option v-for="subject in subjects" :value="subject.id" :key="subject">{{subject.subject}}</option>
-              </select>            
-            </div>
-
-            <div class="col-12">
-              <label class="form-label">Description</label>
-              <input v-model="ticket.description" type="text" class="form-control">
-            </div>
-
-            <div class="col-3">
-              <button id="btn" class="btn btn-primary" @click="createTicket && activeFormRequest">Send</button>
-            </div>         
-          </div>
-          
-        </fieldset>    
-      </div> 
     </form>       
   </section>     
 </template>
@@ -151,38 +88,15 @@ export default {
         phone: "",
         email: ""
       },
-      ticket: {
-        date: "",
-        time: "",
-        description: ""
-      },
       departments: [],
       cities: [],
       selDepartment: "",
-      selCity: "",
-      dependences: [],
-      dependence: "",
-      subdependences: [],
-      subdependence: "",
-      userBySID: [],
-      userSID: "",
-      subjects: [],
-      subject: "",
-      codeDependence: "",
-      codeSubdependence: "",
-      count: ""
+      selCity: ""
     };    
   },
   mounted() {
     this.listDepartments();
     this.listCities();
-    this.listDependences();
-    this.listSubdependences();
-    this.listUserBySID();
-    this.listSubjects();
-    this.getCodeDependence();
-    this.getCodeSubdependence();
-    this.getCount();
     
     this.token = localStorage.getItem("token")
     axios.post("http://localhost:8888/apitickets/user/auth", {
@@ -197,17 +111,8 @@ export default {
     })
   },
   computed: {
-    activeFormRequest() {
-      var activeForm = document.getElementById('formRequest');
-      activeForm.disabled = true;
-      return activeForm;   
-    }
   },
   methods: {
-    activeForm(){
-      const form = document.getElementById('formRequest');
-      form.addEventListener("click", () => (form.disabled = true));
-    },
     async listCities() {
       if(!this.selDepartment){
         this.cities = []
@@ -253,7 +158,7 @@ export default {
           "Content-Type": "application/json"
         }
       })
-      .then(() => {
+      .then(() => {        
         this.clearInputsForm1();
       });
     },
@@ -267,140 +172,6 @@ export default {
       this.selDepartment = "",
       this.selCity = ""
 
-    },
-    async listDependences() {
-      await axios.get("http://localhost:8888/apitickets/dependences", {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*"
-        }
-      })
-      .then((Response) => {
-        //console.log("Cities", Response.data)
-        this.getCodeDependence();
-        this.dependences = Response.data;
-      });
-    },
-    async listSubdependences() {
-      if(!this.dependence){
-        this.subdependences = []
-      }else{
-        await axios.get(`http://localhost:8888/apitickets/subdependence/filter/${this.dependence.id}`, {
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*"
-          }
-        })
-        .then((Response) => {
-          //console.log("Cities", Response.data)
-          this.getCodeSubdependence();
-          this.subdependences = Response.data;
-        });
-      }
-    },
-    async listUserBySID() {
-      if(!this.subdependence){
-        this.userBySID = []
-      }else{
-        await axios.get(`http://localhost:8888/apitickets/user/filter/${this.subdependence}`, {
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*"
-          }
-        })
-        .then((Response) => {
-          //console.log("Cities", Response.data)
-          this.userBySID = Response.data;
-        });
-      }
-    },
-    async listSubjects() {
-      await axios.get("http://localhost:8888/apitickets/subjects", {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*"
-        }
-      })
-      .then((Response) => {
-        //console.log("Cities", Response.data)
-        this.subjects = Response.data;
-      });
-    },
-    async createTicket() {
-      const dataTicket = JSON.stringify({
-        date : this.ticket.date,
-        time : this.ticket.time,
-        prefix : this.codeDependence+"-"+this.codeSubdependence+"-",
-        count: this.count, 
-        dependence_id : this.dependence.id,
-        subdependence_id : this.subdependence,
-        user_id : this.userSID,
-        subject_id : this.subject,
-        description : this.ticket.description
-      })
-
-      await axios.post("http://localhost:8888/apitickets/ticket/create", dataTicket, {
-        headers: {
-          "Content-Type": "application/json"
-        }
-      })
-      .then(() => {
-        this.clearInputsForm2();
-        this.$router.push("/");
-      });
-    },
-    clearInputsForm2(){
-      this.ticket.date = "",
-      this.ticket.time = "",
-      this.dependence = "",
-      this.subdependence = "",
-      this.userSID = "",
-      this.subject = ""
-      this.ticket.description = ""
-    },
-    async getCodeDependence() {
-      if(!this.dependence.id){
-        this.codeDependence = "";
-      }else{
-        await axios.get(`http://localhost:8888/apitickets/dependence/code/${this.dependence.id}`, {
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*"
-          }
-        })
-        .then((Response) => {
-          //console.log("Cities", Response.data)
-          this.codeDependence = Response.data[0,0].code;
-        });
-      }
-    },
-    async getCodeSubdependence() {
-      if(!this.subdependence){
-        this.codeSubdependence = "";
-      }else{
-        await axios.get(`http://localhost:8888/apitickets/dependence/code/${this.subdependence}`, {
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*"
-          }
-        })
-        .then((Response) => {
-          //console.log("Cities", Response.data)
-          this.codeSubdependence = Response.data[0,0].code;
-        });
-      }
-    }, 
-    async getCount() {
-      await axios.get(`http://localhost:8888/apitickets/ticket/count`, {
-        headers: {
-          "Content-Type": "application/json",
-          "Access-Control-Allow-Origin": "*"
-        }
-      })
-      .then((Response) => {
-        //console.log("Cities", Response.data)
-        this.count = Response.data;
-      });
     }    
   }
 };
@@ -433,14 +204,6 @@ export default {
   padding-bottom: 15px;
   border-radius: 15px;
   margin-right: 50px;
-}
-
-#form-ticket-2 {
-  padding-top: 10px;
-  border: 1px solid #004884;
-  padding-bottom: 15px;
-  border-radius: 15px;
-  margin-left: 30px;
 }
 
 .title {

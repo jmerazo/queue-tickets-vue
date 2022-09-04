@@ -9,12 +9,21 @@ import UsersList from '@/views/Users/List.vue'
 import UserAuthCreate from '@/views/Users/RegisterAuth.vue'
 import UserUpdate from '@/views/Users/Update.vue'
 import PasswordUpdate from '@/views/Users/AuthPassUpdate.vue'
+import TicketRequest from '@/views/Tickets/Request.vue'
 
 const routes = [
     {
         path: '/',
         name: 'Home',
         component: Home,
+        meta: {
+            auth: false
+        }
+    },
+    {
+        path: '/ticket/request',
+        name: 'TicketRequest',
+        component: TicketRequest,
         meta: {
             auth: false
         }

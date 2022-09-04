@@ -12,7 +12,7 @@ export default {
 
 <style>
 .footer {
-	background: #E6EFFD; 
+	background: #54426b; 
 	text-align: center;
     justify-content: center;
     align-content: center;
@@ -20,8 +20,6 @@ export default {
 	bottom: 0;
 	width: 100%;
 	height: 35px;
-	color: #004884;
-	border-top-right-radius: 30px;
-	border-top-left-radius: 30px;;
+	color: #ffffff;
 }
 </style>
