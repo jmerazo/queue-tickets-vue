@@ -1,62 +1,68 @@
 <template>
     <section class="container">
-      <form class="row">       
-        <div class="col-5" id="form-ticket">
-            <h2 class="title">Request Ticket</h2><br><br>
-  
-            <div class="row">
-              <div class="col-6">
-                <label class="form-label">Date</label>
-                <input v-model="ticket.date" type="date" class="form-control">
-              </div>
-  
-              <div class="col-6">
-                <label class="form-label">Time</label>
-                <input v-model="ticket.time" type="time" class="form-control">            
-              </div>
-  
-              <div class="col-6">
-                <label class="form-label">Dependence</label>
-                <select v-model="dependence" @change="listSubdependences() && getCodeDependence()" class="form-control" id="dependence">
-                  <option value="" disabled>Select an option...</option>
-                  <option v-for="dependence in dependences" :value="dependence" :key="dependence.id">{{dependence.name}}</option>
-                </select>            
-              </div>
-  
-              <div class="col-6">
-                <label class="form-label">Subdependence</label>
-                <select v-model="subdependence" @change="listUserBySID() && getCodeSubdependence()" class="form-control" id="subdependence">
-                  <option value="" disabled>Select an option...</option>
-                  <option v-for="subdependence in subdependences" :value="subdependence.id" :key="subdependence">{{subdependence.name}}</option>
-                </select>            
-              </div>
-  
-              <div class="col-6">
-                <label class="form-label">Functionary</label>
-                <select v-model="userSID" class="form-control" id="userSID">
-                  <option value="" disabled>Select an option...</option>
-                  <option v-for="user in userBySID" :value="user.id" :key="user">{{user.names}} {{user.last_names}}</option>
-                </select>            
-              </div>
-  
-              <div class="col-6">
-                <label class="form-label">Subject</label>
-                <select v-model="subject" class="form-control" id="userSID">
-                  <option value="" disabled>Select an option...</option>
-                  <option v-for="subject in subjects" :value="subject.id" :key="subject">{{subject.subject}}</option>
-                </select>            
-              </div>
-  
-              <div class="col-12">
-                <label class="form-label">Description</label>
-                <input v-model="ticket.description" type="text" class="form-control">
-              </div>
-  
-              <div class="col-3">
-                <button id="btn" type="submit" class="btn" @click="createTicket">Send</button>
-              </div>         
-            </div> 
-        </div> 
+      <form class="row">
+        <div class="col-12 ctppal">
+            <div class="col-7 form-ticket-rt-2">
+                <h1>Solicite su turno de forma virtual para gestionar el tramite de Pasaporte</h1>
+            </div>
+
+            <div class="col-5 form-ticket-rt-1">
+                <h2 class="title">Request Ticket</h2><br><br>
+    
+                <div class="row">
+                    <div class="col-6">
+                        <label class="form-label">Date</label>
+                        <input v-model="ticket.date" type="date" class="form-control">
+                    </div>
+        
+                    <div class="col-6">
+                        <label class="form-label">Time</label>
+                        <input v-model="ticket.time" type="time" class="form-control">            
+                    </div>
+        
+                    <div class="col-6">
+                        <label class="form-label">Dependence</label>
+                        <select v-model="dependence" @change="listSubdependences() && getCodeDependence()" class="form-control" id="dependence">
+                        <option value="" disabled>Select an option...</option>
+                        <option v-for="dependence in dependences" :value="dependence" :key="dependence.id">{{dependence.name}}</option>
+                        </select>            
+                    </div>
+        
+                    <div class="col-6">
+                        <label class="form-label">Subdependence</label>
+                        <select v-model="subdependence" @change="listUserBySID() && getCodeSubdependence()" class="form-control" id="subdependence">
+                        <option value="" disabled>Select an option...</option>
+                        <option v-for="subdependence in subdependences" :value="subdependence.id" :key="subdependence">{{subdependence.name}}</option>
+                        </select>            
+                    </div>
+        
+                    <div class="col-6">
+                        <label class="form-label">Functionary</label>
+                        <select v-model="userSID" class="form-control" id="userSID">
+                        <option value="" disabled>Select an option...</option>
+                        <option v-for="user in userBySID" :value="user.id" :key="user">{{user.names}} {{user.last_names}}</option>
+                        </select>            
+                    </div>
+        
+                    <div class="col-6">
+                        <label class="form-label">Subject</label>
+                        <select v-model="subject" class="form-control" id="userSID">
+                        <option value="" disabled>Select an option...</option>
+                        <option v-for="subject in subjects" :value="subject.id" :key="subject">{{subject.subject}}</option>
+                        </select>            
+                    </div>
+        
+                    <div class="col-12">
+                        <label class="form-label">Description</label>
+                        <input v-model="ticket.description" type="text" class="form-control">
+                    </div>
+        
+                    <div class="col-3">
+                        <button id="btn" type="submit" class="btn" @click="createTicket">Send</button>
+                    </div>         
+                </div> 
+            </div>
+        </div>   
       </form>        
     </section>     
   </template>
@@ -262,49 +268,54 @@
     background-color: #bebac4;
 }
 .container {
-display: flex;
-align-items: center;
-justify-content: center;
-padding-top: 20px;
-padding-bottom: 20px;
+    display: flex;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 
 .row {
-align-items: center;
-justify-items: center;
-justify-content: center;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
 }
 
 #btn {
-margin-top: 20px;
-align-content: center;
-background-color: #54426b;
-color: white;
+    margin-top: 20px;
+    align-content: center;
+    background-color: #54426b;
+    color: white;
 }
 
-#form-ticket {
-padding-top: 10px;
-padding-bottom: 15px;
-border-radius: 15px;
-margin-left: 30px;
-background-color: #ffffff4d;
-backdrop-filter: blur(3px);
--webkit-backdrop-filter: blur(3px);
+.form-ticket-rt-1 {
+    padding-top: 10px;
+    padding-bottom: 15px;
+    border-radius: 15px;
+}
+
+.ccppal{
+    display: flex;
+}
+
+.form-ticket-rt-2 {
+    padding-top: 10px;
+    padding-bottom: 15px;
+    border-radius: 15px;
+    margin-right: 180px;
 }
 
 .title {
-display: flex;
-text-align: center;
-align-items: center;
-justify-content: center;
-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .subtitle {
-display: flex;
-text-align: center;
-align-items: center;
-justify-content: center;
-font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 </style>

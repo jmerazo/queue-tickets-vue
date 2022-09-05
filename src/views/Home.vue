@@ -9,7 +9,8 @@
           <div class="col-6">
             <label class="form-label">Document Type</label>
             <select v-model="person.document_type" class="form-control" id="document_type">
-              <option value="" disabled>Select an option...</option>
+              <option v-show="!person.document_type" value="" disabled>Select an option...</option>
+              <option v-show="person.document_type" :value="this.person.document_type">{{this.person.document_type}}</option>
               <option value="Cédula de Ciudadanía">CC - Cédula de Ciudadanía</option>
               <option value="Cédula de Extranjería">CE - Cédula de Extranjería</option>
               <option value="Número de identificación personal">NIP - Número de identificación personal</option>
@@ -21,7 +22,7 @@
 
           <div class="col-6">
             <label class="form-label">Document number</label>
-            <input v-model="person.document_number" type="text" class="form-control">
+            <input v-model="person.document_number" @change="personValidate()" type="text" class="form-control">
           </div>
 
           <div class="col-6">
@@ -47,7 +48,8 @@
           <div class="col-6">
             <label class="form-label">Departments</label>
             <select v-model="selDepartment" @change="listCities()" class="form-control" id="department">
-              <option value="" disabled>Select an option...</option>
+              <option v-show="!selDepartment" value="" disabled>Select an option...</option>
+              <option v-show="selDepartment" :value="selDepartment">{{this.departmentSearch}}</option>
               <option v-for="department in departments" :value="department" :key="department.code">{{department.name}}</option>
             </select>
           </div>
@@ -55,7 +57,8 @@
           <div class="col-6">
             <label class="form-label">Cities</label>
             <select v-model="selCity" class="form-control" id="city">
-              <option value="" disabled>Select an option...</option>
+              <option v-show="!selCity" value="" disabled>Select an option...</option>
+              <option v-show="selCity" :value="selCity">{{this.citySearch}}</option>
               <option v-for="city in cities" :value="city.id" :key="city">{{city.name}}</option>
             </select>
           </div>
@@ -91,12 +94,19 @@ export default {
       departments: [],
       cities: [],
       selDepartment: "",
-      selCity: ""
+      departmentSearch: "",
+      selCity: "",
+      citySearch: "",
+      personSearch: [],
+      documentNumberValidate: "",
+      personid: "",
+      personidSearch: ""
     };    
   },
   mounted() {
     this.listDepartments();
     this.listCities();
+    this.getIdPersons();
     
     this.token = localStorage.getItem("token")
     axios.post("http://localhost:8888/apitickets/user/auth", {
@@ -141,26 +151,67 @@ export default {
         this.departments = Response.data;
       });
     },
-    async createPerson() {
-      const dataPerson = JSON.stringify({
-        document_type : this.person.document_type,
-        document_number : this.person.document_number,
-        names : this.person.names,
-        last_names : this.person.last_names,
-        phone : this.person.phone,
-        email : this.person.email,
-        city_id : this.selCity,
-        department_id : this.selDepartment.code
-      })
-
-      await axios.post("http://localhost:8888/apitickets/person/create", dataPerson, {
+    async personValidate(){
+      await axios.get(`http://localhost:8888/apitickets/person/search/document/${this.person.document_number}`, {
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*"
         }
       })
-      .then(() => {        
-        this.clearInputsForm1();
+      .then((Response) => {
+        console.log("Person: ", Response.data)
+        if(Response){
+          this.person.document_type = Response.data[0].pdt,
+          this.documentNumberValidate = Response.data[0].pdn,
+          this.person.names = Response.data[0].names,
+          this.person.last_names = Response.data[0].last_names,
+          this.person.phone = Response.data[0].phone,
+          this.person.email = Response.data[0].email,
+          this.selDepartment = Response.data[0].department_id,
+          this.selCity = Response.data[0].city_id,
+          this.departmentSearch = Response.data[0].depname,
+          this.citySearch = Response.data[0].cityname,
+          this.personid = Response.data[0].pid
+        }else{
+          this.person.document_type = "",
+          this.person.names = "",
+          this.person.last_names = "",
+          this.person.phone = "",
+          this.person.email = "",
+          this.selDepartment = "",
+          this.selCity = "",
+          this.departmentSearch = "",
+          this.citySearch = ""
+        }
       });
+    },
+    async createPerson() {
+      if(this.documentNumberValidate){
+        localStorage.setItem('pid', this.personid)
+        this.$router.push({
+          name:'TicketRequest'
+        })
+      }else{
+        const dataPerson = JSON.stringify({
+          document_type : this.person.document_type,
+          document_number : this.person.document_number,
+          names : this.person.names,
+          last_names : this.person.last_names,
+          phone : this.person.phone,
+          email : this.person.email,
+          city_id : this.selCity,
+          department_id : this.selDepartment.code
+        })
+        localStorage.setItem('pid', this.personidSearch+1)
+        await axios.post("http://localhost:8888/apitickets/person/create", dataPerson, {
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+        .then(() => {        
+          this.clearInputsForm1();
+        });
+      }
     },
     clearInputsForm1(){
       this.person.document_type = "",
@@ -172,6 +223,17 @@ export default {
       this.selDepartment = "",
       this.selCity = ""
 
+    },
+    async getIdPersons(){
+      await axios.get(`http://localhost:8888/apitickets/person/id`, {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*"
+        }
+      })
+      .then((Response) => {
+        this.personidSearch = Response.data[0].id;
+      });
     }    
   }
 };

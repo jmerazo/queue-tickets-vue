@@ -30,15 +30,19 @@
               </li>
 
               <li class="nav-item">
-                <a class="nav-item nav-link btn btn-light" href="" id="txt-nav">Passport</a>
+                <a class="nav-item nav-link btn btn-light" href="/passport/request/ticket" id="txt-nav">Passport</a>
               </li>
               
               <li class="nav-item">
-                <a class="nav-item nav-link btn btn-light" href="" id="txt-nav">Tickets</a>
+                <a class="nav-item nav-link btn btn-light" href="http://gesdoc.putumayo.gov.co/#!/page/login" id="txt-nav">GesDoc</a>
               </li>
 
               <li class="nav-item">
-                <a class="nav-item nav-link btn btn-light" href="#" id="txt-nav">Data</a>
+                <a class="nav-item nav-link btn btn-light" href="http://nomina.putumayo.gov.co/autlogin" id="txt-nav">SigNom</a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-item nav-link btn btn-light" href="https://www.putumayo.gov.co/" id="txt-nav">Portal web</a>
               </li>
               <li class="nav-item">
                 <div class="dropdown dropstart">

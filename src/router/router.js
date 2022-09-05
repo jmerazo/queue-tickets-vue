@@ -10,6 +10,7 @@ import UserAuthCreate from '@/views/Users/RegisterAuth.vue'
 import UserUpdate from '@/views/Users/Update.vue'
 import PasswordUpdate from '@/views/Users/AuthPassUpdate.vue'
 import TicketRequest from '@/views/Tickets/Request.vue'
+import PassportRequest from '@/views/Passport/Register.vue'
 
 const routes = [
     {
@@ -104,6 +105,14 @@ const routes = [
         name: 'statusUpdate',
         meta: {
             auth:true
+        }
+    },
+    {
+        path: '/passport/request/ticket',
+        name: 'PassportRequest',
+        component: PassportRequest,
+        meta: {
+            auth:false
         }
     }
 ]
