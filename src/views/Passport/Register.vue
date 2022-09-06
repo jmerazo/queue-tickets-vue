@@ -58,7 +58,7 @@
                     </div>
         
                     <div class="col-3">
-                        <button id="btn" type="submit" class="btn" @click="createTicket">Send</button>
+                        <button id="btn-register" type="submit" class="btn" @click="createTicket">Send</button>
                     </div>         
                 </div> 
             </div>
@@ -279,7 +279,7 @@
     justify-content: center;
 }
 
-#btn {
+#btn-register {
     margin-top: 20px;
     align-content: center;
     background-color: #54426b;

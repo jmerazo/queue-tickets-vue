@@ -1,22 +1,22 @@
 <template>
     <section class="container">
       <form class="row">       
-        <div class="col-5" id="form-ticket">
+        <div class="col-5" id="form-ticket-request">
             <h2 class="title">Request Ticket</h2><br><br>
   
             <div class="row">
               <div class="col-6">
-                <label class="form-label">Date</label>
+                <font-awesome-icon id="fai-log" :icon="['fas', 'calendar']"/><label class="form-label">Date</label>
                 <input v-model="ticket.date" type="date" class="form-control">
               </div>
   
               <div class="col-6">
-                <label class="form-label">Time</label>
+                <font-awesome-icon id="fai-log" :icon="['fas', 'clock']"/><label class="form-label">Time</label>
                 <input v-model="ticket.time" type="time" class="form-control">            
               </div>
   
               <div class="col-6">
-                <label class="form-label">Dependence</label>
+                <font-awesome-icon id="fai-log" :icon="['fas', 'building']"/><label class="form-label">Dependence</label>
                 <select v-model="dependence" @change="listSubdependences() && getCodeDependence()" class="form-control" id="dependence">
                   <option value="" disabled>Select an option...</option>
                   <option v-for="dependence in dependences" :value="dependence" :key="dependence.id">{{dependence.name}}</option>
@@ -24,7 +24,7 @@
               </div>
   
               <div class="col-6">
-                <label class="form-label">Subdependence</label>
+                <font-awesome-icon id="fai-log" :icon="['fas', 'building']"/><label class="form-label">Subdependence</label>
                 <select v-model="subdependence" @change="listUserBySID() && getCodeSubdependence()" class="form-control" id="subdependence">
                   <option value="" disabled>Select an option...</option>
                   <option v-for="subdependence in subdependences" :value="subdependence.id" :key="subdependence">{{subdependence.name}}</option>
@@ -32,7 +32,7 @@
               </div>
   
               <div class="col-6">
-                <label class="form-label">Functionary</label>
+                <font-awesome-icon id="fai-log" :icon="['fas', 'person']"/><label class="form-label">Functionary</label>
                 <select v-model="userSID" class="form-control" id="userSID">
                   <option value="" disabled>Select an option...</option>
                   <option v-for="user in userBySID" :value="user.id" :key="user">{{user.names}} {{user.last_names}}</option>
@@ -40,7 +40,7 @@
               </div>
   
               <div class="col-6">
-                <label class="form-label">Subject</label>
+                <font-awesome-icon id="fai-log" :icon="['fas', 'file']"/><label class="form-label">Subject</label>
                 <select v-model="subject" class="form-control" id="userSID">
                   <option value="" disabled>Select an option...</option>
                   <option v-for="subject in subjects" :value="subject.id" :key="subject">{{subject.subject}}</option>
@@ -48,12 +48,12 @@
               </div>
   
               <div class="col-12">
-                <label class="form-label">Description</label>
-                <input v-model="ticket.description" type="text" class="form-control">
+                <font-awesome-icon id="fai-log" :icon="['fas', 'file-lines']"/><label class="form-label">Description</label>
+                <textarea v-model="ticket.description" type="text" class="form-control" id="description"></textarea>
               </div>
   
               <div class="col-3">
-                <button id="btn" type="submit" class="btn" @click="createTicket">Send</button>
+                <button id="btn-ticket-request" type="submit" class="btn" @click="createTicket">Send</button>
               </div>         
             </div> 
         </div> 
@@ -275,14 +275,18 @@ justify-items: center;
 justify-content: center;
 }
 
-#btn {
+#btn-ticket-request {
 margin-top: 20px;
 align-content: center;
 background-color: #54426b;
 color: white;
 }
 
-#form-ticket {
+.form-label{
+  font-weight: bold;
+}
+
+#form-ticket-request {
 padding-top: 10px;
 padding-bottom: 15px;
 border-radius: 15px;
@@ -290,6 +294,11 @@ margin-left: 30px;
 background-color: #ffffff4d;
 backdrop-filter: blur(3px);
 -webkit-backdrop-filter: blur(3px);
+border: 1px solid #0000004d;
+}
+
+#description{
+  height: 100px;
 }
 
 .title {

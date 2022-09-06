@@ -1,13 +1,13 @@
 <template>
   <section class="container">
     <form class="row">   
-      <div class="col-6" id="form-ticket-1">
+      <div class="col-6" id="form-ticket-home">
         <h2 class="title">Tickets</h2>
         <label class="subtitle">Fill out the form</label><br>
 
         <div class="row">
           <div class="col-6">
-            <label class="form-label">Document Type</label>
+            <font-awesome-icon id="fai-log" :icon="['fas', 'id-card']"/><label class="form-label">Document Type</label>
             <select v-model="person.document_type" class="form-control" id="document_type">
               <option v-show="!person.document_type" value="" disabled>Select an option...</option>
               <option v-show="person.document_type" :value="this.person.document_type">{{this.person.document_type}}</option>
@@ -21,32 +21,32 @@
           </div>
 
           <div class="col-6">
-            <label class="form-label">Document number</label>
+            <font-awesome-icon id="fai-log" :icon="['fas', 'list-ol']"/><label class="form-label">Document number</label>
             <input v-model="person.document_number" @change="personValidate()" type="text" class="form-control">
           </div>
 
           <div class="col-6">
-            <label class="form-label">Names</label>
+            <font-awesome-icon id="fai-log" :icon="['fas', 'file-text']"/><label class="form-label">Names</label>
             <input v-model="person.names" type="text" class="form-control">
           </div>
 
           <div class="col-6">
-            <label class="form-label">Last Names</label>
+            <font-awesome-icon id="fai-log" :icon="['fas', 'file-text']"/><label class="form-label">Last Names</label>
             <input v-model="person.last_names" type="text" class="form-control">
           </div>
 
           <div class="col-6">
-            <label class="form-label">Phone</label>
+            <font-awesome-icon id="fai-log" :icon="['fas', 'mobile']"/><label class="form-label">Phone</label>
             <input v-model="person.phone" type="text" class="form-control">
           </div>
 
           <div class="col-6">
-            <label class="form-label">Email</label>
+            <font-awesome-icon id="fai-log" :icon="['fas', 'envelope']"/><label class="form-label">Email</label>
             <input v-model="person.email" type="email" class="form-control">
           </div>
 
           <div class="col-6">
-            <label class="form-label">Departments</label>
+            <font-awesome-icon id="fai-log" :icon="['fas', 'location-dot']"/><label class="form-label">Departments</label>
             <select v-model="selDepartment" @change="listCities()" class="form-control" id="department">
               <option v-show="!selDepartment" value="" disabled>Select an option...</option>
               <option v-show="selDepartment" :value="selDepartment">{{this.departmentSearch}}</option>
@@ -55,7 +55,7 @@
           </div>
 
           <div class="col-6">
-            <label class="form-label">Cities</label>
+            <font-awesome-icon id="fai-log" :icon="['fas', 'location-pin']"/><label class="form-label">Cities</label>
             <select v-model="selCity" class="form-control" id="city">
               <option v-show="!selCity" value="" disabled>Select an option...</option>
               <option v-show="selCity" :value="selCity">{{this.citySearch}}</option>
@@ -64,7 +64,7 @@
           </div>
 
           <div class="col-4">
-            <a type="submit" id="btn" class="btn" @click="createPerson" href="/ticket/request">Request Ticket</a>
+            <a type="submit" class="btn" @click="createPerson" href="/ticket/request">Request Ticket</a>
           </div>          
         </div>
         
@@ -254,13 +254,13 @@ export default {
   justify-content: center;
 }
 
-#btn {
+.btn {
   margin-top: 20px;
   align-content: center;
-  background-color: #004884;
+  background-color: #54426b;
 }
 
-#form-ticket-1 {
+#form-ticket-home {
   padding-top: 10px;
   border: 1px solid #004884;
   padding-bottom: 15px;

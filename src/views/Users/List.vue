@@ -2,8 +2,8 @@
     <section class="container">
         <form class="ctn-form">          
           <div id="btn-back">
-            <a id="abtn-1" href="/user/panel/administrator" class="btn btn-primary" type="button">Back</a>
-            <a id="abtn-2" href="/user/create" class="btn btn-primary" type="button">Register</a>       
+            <a id="btn-back-users-list-top" href="/user/panel/administrator" class="btn" type="button"><font-awesome-icon id="fai-log-update-password" :icon="['fas', 'chevron-left']"/></a>
+            <a id="btn-register-user-top" href="/user/create" class="btn" type="button"><font-awesome-icon id="fai-user-list" :icon="['fas', 'user-plus']"/></a>       
           </div>
                             
           <div class="row">
@@ -14,20 +14,20 @@
                   <table class="table">
                     <thead class="thead-dark">
                       <tr id="tr-title">
-                          <th>Document</th>
-                          <th>Number</th>
+                          <!--th>Document</th-->
+                          <th>Identification</th>
                           <th>Names</th>
                           <th>Phone</th>
                           <th>Email</th>
                           <th>Dependence</th>
-                          <th>Subdependence</th>
+                          <th>Subdep</th>
                           <th>Status</th>
                           <th>Actión</th>
                       </tr>
                     </thead>
                     <tbody>
                       <tr v-for="user in users_list" :value="user.id" :key="user.id">
-                          <td>{{user.document_type}}</td>
+                          <!--td>{{user.document_type}}</td-->
                           <td>{{user.document_number}}</td>
                           <td>{{user.names +" "+ user.last_names}}</td>
                           <td>{{user.phone}}</td>
@@ -36,13 +36,13 @@
                           <td>{{user.sname}}</td>
                           <td v-if="user.status == 1">Activo</td>
                           <td v-if="user.status == 0">Inactivo</td>
-                          <td>
-                            <a title="Add" type="submit"><router-link :to="{name: 'userCreate', params: {id: user.id}}">&#128466;</router-link></a>
-                            <a title="Delete" type="submit" @click="userDelete()"><router-link :to="{name: 'userDelete', params: {id: user.id}}">&#128465;</router-link></a>
-                            <a title="Update" type="submit"><router-link :to="{name: 'userUpdate', params: {id: user.id, document_type: user.document_type, document_number: user.document_number, names: user.names, last_names: user.last_names, phone: user.phone, email: user.email, dependence_id: user.dependence_id, subdependence_id: user.subdependence_id}}">&#128259;</router-link></a>
-                            <a title="Change Password" type="submit"><router-link :to="{name: 'passwordUpdate', params: {id: user.id, email: user.email}}">&#128272;</router-link></a>
-                            <a title="Deactivate user" type="submit" @click="statusUpdate()" v-if="user.status == 1"><router-link :to="{name: 'statusUpdate', params: {id: user.id, status: 0}}">&#9940;</router-link></a>
-                            <a title="Activate user" type="submit" @click="statusUpdate()" v-if="user.status == 0"><router-link :to="{name: 'statusUpdate', params: {id: user.id, status: 1}}">&#9989;</router-link></a>
+                          <td id="td-action">
+                            <a id="il-cfg" title="Add" type="submit"><router-link :to="{name: 'userCreate', params: {id: user.id}}"><font-awesome-icon id="fai-list" :icon="['fas', 'user-plus']"/></router-link></a>
+                            <a id="il-cfg" title="Update" type="submit"><router-link :to="{name: 'userUpdate', params: {id: user.id, document_type: user.document_type, document_number: user.document_number, names: user.names, last_names: user.last_names, phone: user.phone, email: user.email, dependence_id: user.dependence_id, subdependence_id: user.subdependence_id}}"><font-awesome-icon id="fai-list" :icon="['fas', 'user-pen']"/></router-link></a>
+                            <a id="il-cfg" title="Change Password" type="submit"><router-link :to="{name: 'passwordUpdate', params: {id: user.id, email: user.email}}"><font-awesome-icon id="fai-list" :icon="['fas', 'key']"/></router-link></a>
+                            <a id="il-cfg" title="Deactivate user" type="submit" @click="statusUpdate()" v-if="user.status == 1"><router-link :to="{name: 'statusUpdate', params: {id: user.id, status: 0}}"><font-awesome-icon id="fai-list" :icon="['fas', 'user-xmark']"/></router-link></a>
+                            <a id="il-cfg" title="Activate user" type="submit" @click="statusUpdate()" v-if="user.status == 0"><router-link :to="{name: 'statusUpdate', params: {id: user.id, status: 1}}"><font-awesome-icon id="fai-list" :icon="['fas', 'user-check']"/></router-link></a>
+                            <a id="il-cfg" title="Delete" type="submit" @click="userDelete()"><router-link :to="{name: 'userDelete', params: {id: user.id}}"><font-awesome-icon id="fai-list" :icon="['fas', 'trash']"/></router-link></a>
                           </td>
                       </tr>
                     </tbody>
@@ -145,6 +145,18 @@ export default {
   justify-content: center;
 }
 
+#il-cfg{
+  margin-left: 5px;
+}
+
+#fai-list{
+  color: rgb(0, 0, 0);
+}
+
+#td-action{
+  width: 140px;
+}
+
 #tf-1{
   align-content: left;
   justify-content: left;
@@ -154,15 +166,22 @@ export default {
   text-align: center;
 }
 
-#btn-back {
+#btn-back-users-list-top {
   margin-top: 10px;
   margin-bottom: 10px;
-  float: top;
-  overflow: auto;
+  align-content: left;
+  justify-content: left;
+  background-color: white;
+  color: white;
+  width: 30px;
 }
 
-#abtn-2 {
+#btn-register-user-top {
   margin-left: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: #54426b;
+  color: white;
 }
 
 #tab-1{

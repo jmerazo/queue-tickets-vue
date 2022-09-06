@@ -8,17 +8,19 @@
         <div class="row">
 
           <div>
+            <font-awesome-icon id="fai-log" :icon="['fas', 'user']"/>
             <label class="form-label">Username</label>
-            <input v-model="username" type="text" class="form-control">
+            <input v-model="username" type="text" class="form-control" placeholder="Enter your username">
           </div>
 
           <div>
+            <font-awesome-icon id="fai-log" :icon="['fas', 'unlock']"/>
             <label class="form-label">Password</label>
-            <input v-model="password" type="password" class="form-control">
+            <input v-model="password" type="password" class="form-control" placeholder="Enter your password">
           </div>
 
           <div class="col-4">
-            <button id="btn" class="btn" type="submit">Send</button>
+            <button class="btn" type="submit">Send</button>
           </div>          
         </div>        
       </div>
@@ -124,10 +126,10 @@ export default {
   justify-content: center;
 }
 
-#btn {
+.btn {
   margin-top: 20px;
   align-content: center;
-  background-color: #004884;
+  background-color: #6622be;;
 }
 
 #form-ticket-1 {

@@ -11,6 +11,7 @@ import UserUpdate from '@/views/Users/Update.vue'
 import PasswordUpdate from '@/views/Users/AuthPassUpdate.vue'
 import TicketRequest from '@/views/Tickets/Request.vue'
 import PassportRequest from '@/views/Passport/Register.vue'
+import Profile from '@/views/Users/Profile.vue'
 
 const routes = [
     {
@@ -35,6 +36,14 @@ const routes = [
         component: Login,
         meta: {
             auth:false
+        }
+    },
+    {
+        path: '/user/profile',
+        name: 'Profile',
+        component: Profile,
+        meta: {
+            auth:true
         }
     },
     {

@@ -1,27 +1,23 @@
 <template>
   <section class="container">
 
-    <form class="row">
-      <div id="btn-back">
-        <a href="/users/list" class="btn btn-primary" type="button">Volver</a>      
-      </div>       
-         
-        <div class="col-12" id="form-ticket-1">
+    <form class="row">              
+        <a href="/users/list" id="btn-update-password-top" class="btn" type="button"><font-awesome-icon id="fai-log-update-password" :icon="['fas', 'chevron-left']"/></a>       
+        <div class="col-12" id="form-ticket-update-pass">
             <h2 class="title">Password Update</h2>
-            <label class="subtitle">Fill out the form</label><br>
 
             <div class="col-6">
-                <label class="form-label">Email</label>
-                <input v-model="user.username" type="text" class="form-control" disabled>
+              <font-awesome-icon id="fai-log" :icon="['fas', 'envelope']"/><label class="form-label">Email</label>
+              <input id="i-email" v-model="user.username" type="text" class="form-control" disabled>
             </div>
 
             <div class="col-6">
-                <label class="form-label">Password</label>
-                <input v-model="user.password" type="password" class="form-control">
+              <font-awesome-icon id="fai-log" :icon="['fas', 'unlock']"/><label class="form-label">Password</label>
+              <input id="i-email" v-model="user.password" type="password" class="form-control">
             </div>
 
             <div class="col-2">
-                <button id="btn" class="btn btn-primary" @click="updatePassword">Save</button>
+                <button id="btn-update-password" class="btn" @click="updatePassword">Save</button>
             </div>
           
         </div>
@@ -87,18 +83,39 @@ export default {
   justify-content: center;
 }
 
-#btn {
+#btn-update-password {
   margin-top: 20px;
   align-content: center;
-  background-color: #004884;
+  background-color: #54426b;
+  color: white;
 }
 
-#form-ticket-1 {
+#fai-log-update-password{
+  color: #54426b;
+}
+
+#btn-update-password-top {
+  margin-top: 20px;
+  align-content: left;
+  justify-content: left;
+  background-color: #ffffff;
+  color: white;
+  width: 30px;
+  margin-bottom: 20px;
+}
+
+#i-email{
+  width: 250px;
+}
+
+#form-ticket-update-pass {
   padding-top: 10px;
-  border: 1px solid #004884;
+  border: 1px solid #54426b;
   padding-bottom: 15px;
   border-radius: 15px;
   margin-right: 50px;
+  justify-content: center;
+  align-content: center;
 }
 
 .title {

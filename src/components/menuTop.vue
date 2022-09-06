@@ -47,17 +47,17 @@
               <li class="nav-item">
                 <div class="dropdown dropstart">
                   <button type="button" class="btn btn-light dropdown-toggle dropdown-toggle-split nav-item nav-link" id="btncircle" data-bs-toggle="dropdown">
-                    J
                     <span class="caret"></span>
                   </button>
                   <ul class="dropdown-menu" role="menu" aria-labelledby="btncircle">
-                    <li v-show="uid"><h6>{{ this.names +' '+this.last_names }}</h6></li>
-                    <li v-show="!uid"><a class="dropdown-item" href="/users/login">Login</a></li>
-                    <li v-show="this.rol == 1 || this.rol == 2 && uid"><a class="dropdown-item" href="/user/panel">Panel</a></li>
-                    <li v-show="this.rol != 1 || this.rol != 2 && uid"><a class="dropdown-item" href="/user/panel/administrator">Panel</a></li>
-                    <li v-show="uid"><a class="dropdown-item" href="#">Perfil</a></li>
+                    <li v-show="uid"><h6 id="t-log">{{ this.names +' '+this.last_names }}</h6></li>
                     <li class="divider"></li>
-                    <li v-show="uid"><a class="dropdown-item" type="button" @click="logOut">Log out</a></li>
+                    <li v-show="!uid"><a class="dropdown-item" href="/users/login"><font-awesome-icon id="fai-log" :icon="['fas', 'user-lock']"/>Login</a></li>
+                    <li v-show="this.rol == 1 || this.rol == 2 && uid"><a class="dropdown-item" href="/user/panel"><font-awesome-icon id="fai-log" :icon="['fas', 'columns']"/>Panel</a></li>
+                    <li v-show="this.rol != 1 || this.rol != 2 && uid"><a class="dropdown-item" href="/user/panel/administrator"><font-awesome-icon id="fai-log" :icon="['fas', 'columns']"/>Panel</a></li>
+                    <li v-show="uid"><a class="dropdown-item" href="/user/profile"><font-awesome-icon id="fai-log" :icon="['fas', 'address-card']"/>Profile</a></li>
+                    <li class="divider"></li>
+                    <li v-show="uid"><a class="dropdown-item" type="button" @click="logOut"><font-awesome-icon id="fai-log" :icon="['fas', 'right-from-bracket']"/>Log out</a></li>
                   </ul>
                 </div>                                 
               </li>          
@@ -121,6 +121,14 @@ export default {
   width: 100%;
   margin-left: 30px;
   margin-right: 30px;
+}
+
+#fai-log{
+  margin-right: 5px;
+}
+
+#t-log{
+  margin-left: 10px;
 }
 
 #btncircle{

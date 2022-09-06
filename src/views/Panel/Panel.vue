@@ -119,33 +119,10 @@ export default {
   justify-content: left;
 }
 
-#btn {
-  margin-top: 20px;
-  align-content: center;
-  background-color: #004884;
-}
-
-#form-ticket-1 {
-  padding-top: 10px;
-  border: 1px solid #004884;
-  padding-bottom: 15px;
-  border-radius: 15px;
-  margin-right: 50px;
-  margin-top: 20px;
-}
-
-#form-ticket-2 {
-  padding-top: 10px;
-  border: 1px solid #004884;
-  padding-bottom: 15px;
-  border-radius: 15px;
-  margin-left: 30px;
-}
-
 #tab-1 {
   display: flex;
   padding-top: 10px;
-  border: 1px solid #004884;
+  border: 1px solid #54426b;
   border-top-left-radius: 25px;
   border-top-right-radius: 25px;
 }
