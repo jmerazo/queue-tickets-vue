@@ -56,9 +56,21 @@ export default {
         }
       })
       .then(() => {
-        //this.clearInputsForm1();
-        //this.$router.push('/users/list');
-      });
+        this.$toast.success(`Password updated successfully`, {
+          position: 'top-right',
+          duration: 5000
+        });
+        this.clearInputsForm1();
+        this.$router.push('/users/list');
+      })
+      .catch(err =>{
+          this.$toast.error(`Invalid data`, {
+              position: 'top-right',
+              duration: 5000
+          });
+          console.log(err)
+          this.error = true;
+        }); 
     },
     clearInputsForm1(){
       this.user.username = "",

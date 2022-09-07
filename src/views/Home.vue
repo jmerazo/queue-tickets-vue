@@ -1,9 +1,18 @@
 <template>
   <section class="container">
-    <form class="row">   
-      <div class="col-6" id="form-ticket-home">
-        <h2 class="title">Tickets</h2>
-        <label class="subtitle">Fill out the form</label><br>
+    <form class="row">
+      <div id="col-home-image" class="col-6">
+        <h4 id="h4-information">Request your turn to communicate with entity staff.</h4>
+        <h6 id="h6-information"><font-awesome-icon id="fai-log" :icon="['fas', 'calendar']"/>Plan your visits to our entity in advance.</h6>
+        <h6 id="h6-information"><font-awesome-icon id="fai-log" :icon="['fas', 'clock']"/>Save waiting time to enter the entity.</h6>
+        <h6 id="h6-information"><font-awesome-icon id="fai-log" :icon="['fas', 'lightbulb']"/>Remember that this shift does not guarantee that you will be attended to immediately.</h6>
+        <img id="imag-home" src="@/assets/resources/ticketwait.jpg"
+          width="500"
+          height="300"/>
+      </div>   
+      <div class="col-6" id="col-form-ticket-home">
+        <h2 id="title-home">Tickets</h2>
+        <label id="subtitle-home">Fill out the form</label><br>
 
         <div class="row">
           <div class="col-6">
@@ -261,15 +270,40 @@ export default {
   color: white;
 }
 
-#form-ticket-home {
+#imag-home{
+  border-radius: 15px;
+  margin-left: 20px;
+  margin-top: 15px;
+}
+
+#h4-information{
+  text-align: center;
+  width: 550px;
+}
+
+#h6-information{
+  width: 510px;
+}
+
+#col-home-image {
+  position:absolute;
+  top:80px;
+  left:50px;
+  width:200px;
+  margin-top:10px;
+}
+
+#col-form-ticket-home {
   padding-top: 10px;
   border: 1px solid #54426b;
   padding-bottom: 15px;
   border-radius: 15px;
   margin-right: 50px;
+  margin-left:720px;
+  margin-top:10px;
 }
 
-.title {
+#title-home {
   display: flex;
   text-align: center;
   align-items: center;
@@ -277,7 +311,7 @@ export default {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-.subtitle {
+#subtitle-home {
   display: flex;
   text-align: center;
   align-items: center;

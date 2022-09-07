@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import Vuex from '@/store/store'
 import App from './App.vue'
 import router from './router/router'
+import Toaster from "@meforma/vue-toaster";
 import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -38,8 +39,16 @@ import {
     faFileLines,
     faChevronLeft,
     faUsers,
-    faTicket
+    faTicket,
+    faLightbulb,
+    faPhone
 } from '@fortawesome/free-solid-svg-icons'
+import { 
+    faFacebook, 
+    faInstagram, 
+    faTwitter, 
+    faYoutube 
+} from '@fortawesome/free-brands-svg-icons';
 
 library.add(
     faTrash,
@@ -71,11 +80,18 @@ library.add(
     faFileLines,
     faChevronLeft,
     faUsers,
-    faTicket
+    faTicket,
+    faLightbulb,
+    faFacebook,
+    faTwitter,
+    faInstagram,
+    faYoutube,
+    faPhone
 )
 
 createApp(App)
     .use(router)
     .use(Vuex)
+    .use(Toaster)
     .component('font-awesome-icon', FontAwesomeIcon)
     .mount('#app')

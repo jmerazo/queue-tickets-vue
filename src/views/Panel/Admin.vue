@@ -1,7 +1,7 @@
 <template>
     <section class="container">
         <form class="row">
-          <h2 class="title" id="tf-1">Welcome</h2>
+          <h2 id="panel-admin-title">Welcome</h2>
           <label>{{ this.names +' '+this.last_names }}</label>
 
             <a class="btn" id="card-item-padmin" href="/users/list">
@@ -95,7 +95,7 @@ export default {
   justify-content: center;
 }
 
-#tf-1{
+#panel-admin-title{
   align-content: left;
   justify-content: left;
 }
@@ -118,21 +118,5 @@ export default {
   align-items: center;
   justify-items: center;
   justify-content: center;
-}
-
-.title {
-  display: flex;
-  text-align: center;
-  align-items: center;
-  justify-content: center;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-}
-
-.subtitle {
-  display: flex;
-  text-align: center;
-  align-items: center;
-  justify-content: center;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 </style>
