@@ -4,18 +4,18 @@
     <form class="row">
       
       <div id="btn-back">
-        <a id="abtn-1" href="/user/panel/administrator" class="btn btn-primary" type="button">Back</a>
-        <a id="abtn-2" href="/users/list" class="btn btn-primary" type="button">List</a>       
+        <a title="Back" id="btn-back-users-create-top" href="/users/list" class="btn" type="button"><font-awesome-icon id="fai-log-update-password" :icon="['fas', 'chevron-left']"/></a>
+        <a title="Panel administrator" id="btn-register-user-top" href="/user/panel/administrator" class="btn" type="button"><font-awesome-icon :icon="['fas', 'columns']"/></a>       
       </div>
          
-        <div class="col-6" id="form-ticket-1">
+        <div class="col-6" id="form-register-user">
             <h2 class="title">User Register</h2>
             <label class="subtitle">Fill out the form</label><br>
 
             <div class="row">
             <div class="col-6">
-                <label class="form-label">Document Type</label>
-                <select v-model="user.document_type" class="form-control" id="document_type">
+              <font-awesome-icon id="fai-log" :icon="['fas', 'id-card']"/><label class="form-label">Document Type</label>
+              <select v-model="user.document_type" class="form-control" id="document_type">
                 <option value="" disabled>Select an option...</option>
                 <option value="Cédula de Ciudadanía">CC - Cédula de Ciudadanía</option>
                 <option value="Cédula de Extranjería">CE - Cédula de Extranjería</option>
@@ -23,52 +23,52 @@
                 <option value="Número de identificación Tributaria">NIT - Número de identificación Tributaria</option>
                 <option value="Tarjeta de Identidad">TI - Tarjeta de Identidad</option>
                 <option value="Pasaporte">PAP - Pasaporte</option>
-                </select>
+              </select>
             </div>
 
             <div class="col-6">
-                <label class="form-label">Document number</label>
-                <input v-model="user.document_number" type="text" class="form-control">
+              <font-awesome-icon id="fai-log" :icon="['fas', 'list-ol']"/><label class="form-label">Document number</label>
+              <input v-model="user.document_number" type="text" class="form-control">
             </div>
 
             <div class="col-6">
-                <label class="form-label">Names</label>
-                <input v-model="user.names" type="text" class="form-control">
+              <font-awesome-icon id="fai-log" :icon="['fas', 'file-text']"/><label class="form-label">Names</label>
+              <input v-model="user.names" type="text" class="form-control">
             </div>
 
             <div class="col-6">
-                <label class="form-label">Last Names</label>
-                <input v-model="user.last_names" type="text" class="form-control">
+              <font-awesome-icon id="fai-log" :icon="['fas', 'file-text']"/><label class="form-label">Last Names</label>
+              <input v-model="user.last_names" type="text" class="form-control">
             </div>
 
             <div class="col-6">
-                <label class="form-label">Phone</label>
-                <input v-model="user.phone" type="text" class="form-control">
+              <font-awesome-icon id="fai-log" :icon="['fas', 'mobile']"/><label class="form-label">Phone</label>
+              <input v-model="user.phone" type="text" class="form-control">
             </div>
 
             <div class="col-6">
-                <label class="form-label">Email</label>
-                <input v-model="user.email" type="email" class="form-control">
+              <font-awesome-icon id="fai-log" :icon="['fas', 'envelope']"/><label class="form-label">Email</label>
+              <input v-model="user.email" type="email" class="form-control">
             </div>
 
             <div class="col-6">
-                <label class="form-label">Dependence</label>
-                <select v-model="dependence" @change="listSubdependences()" class="form-control" id="dependence">
+              <font-awesome-icon id="fai-log" :icon="['fas', 'building']"/><label class="form-label">Dependence</label>
+              <select v-model="dependence" @change="listSubdependences()" class="form-control" id="dependence">
                 <option value="" disabled>Select an option...</option>
                 <option v-for="dependence in dependences" :value="dependence" :key="dependence.id">{{dependence.name}}</option>
-                </select>            
+              </select>            
             </div>
 
             <div class="col-6">
-                <label class="form-label">Subdependence</label>
-                <select v-model="subdependence" class="form-control" id="subdependence">
+              <font-awesome-icon id="fai-log" :icon="['fas', 'building']"/><label class="form-label">Subdependence</label>
+              <select v-model="subdependence" class="form-control" id="subdependence">
                 <option value="" disabled>Select an option...</option>
                 <option v-for="subdependence in subdependences" :value="subdependence.id" :key="subdependence">{{subdependence.name}}</option>
-                </select>            
+              </select>            
             </div>
 
             <div class="col-2">
-                <button id="btn" class="btn btn-primary" @click="createUser">Save</button>
+                <button id="btn-register-save" class="btn" @click="createUser">Save</button>
             </div>
           
         </div>
@@ -185,29 +185,28 @@ export default {
   justify-content: center;
 }
 
-#btn {
-  margin-top: 20px;
-  align-content: center;
-  background-color: #004884;
-}
-
-#btn-back {
+#btn-back-users-create-top {
   margin-top: 10px;
   margin-bottom: 10px;
-  float: top;
-  overflow: auto;
+  align-content: left;
+  justify-content: left;
+  background-color: white;
+  color: white;
+  width: 30px;
 }
 
-#abtn-2 {
-  margin-left: 10px;
+#btn-register-save {
+  background-color: #54426b;
+  color: white;
 }
 
-#form-ticket-1 {
+#form-register-user {
   padding-top: 10px;
-  border: 1px solid #004884;
+  border: 1px solid #54426b;
   padding-bottom: 15px;
   border-radius: 15px;
   margin-right: 50px;
+  margin-bottom: 80px;
 }
 
 .title {

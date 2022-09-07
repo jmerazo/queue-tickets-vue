@@ -6,18 +6,21 @@
 
             <a class="btn" id="card-item-padmin" href="/users/list">
               <div class="card-body" id="card-body-item">
+                <font-awesome-icon id="fai-log" :icon="['fas', 'users']"/>
                 Users
               </div>
             </a>
 
             <a class="btn" id="card-item-padmin" href="">
               <div class="card-body" id="card-body-item">
+                <font-awesome-icon id="fai-log" :icon="['fas', 'building']"/>
                 Areas
               </div>
             </a>
 
             <a class="btn" id="card-item-padmin" href="">
               <div class="card-body" id="card-body-item">
+                <font-awesome-icon id="fai-log" :icon="['fas', 'ticket']"/>
                 Tickets
               </div>
             </a>

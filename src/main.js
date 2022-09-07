@@ -36,7 +36,9 @@ import {
     faPerson,
     faFile,
     faFileLines,
-    faChevronLeft
+    faChevronLeft,
+    faUsers,
+    faTicket
 } from '@fortawesome/free-solid-svg-icons'
 
 library.add(
@@ -67,7 +69,9 @@ library.add(
     faPerson,
     faFile,
     faFileLines,
-    faChevronLeft
+    faChevronLeft,
+    faUsers,
+    faTicket
 )
 
 createApp(App)

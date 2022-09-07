@@ -10,8 +10,9 @@
             <div>
               <h2 class="title">Users</h2>
             </div> 
-              <div class="col-11" id="tab-1">
-                  <table class="table">
+            
+              <div class="col-11" id="form-users-list">
+                  <table class="table table table-striped table-hover">
                     <thead class="thead-dark">
                       <tr id="tr-title">
                           <!--th>Document</th-->
@@ -184,11 +185,11 @@ export default {
   color: white;
 }
 
-#tab-1{
+#form-users-list{
   display: flex;
   padding-top: 10px;
-  border: 1px solid #004884; 
-  border-radius: 25px; 
+  border: 1px solid #54426b; 
+  border-radius: 20px; 
 }
 
 .title {

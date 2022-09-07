@@ -64,7 +64,7 @@
           </div>
 
           <div class="col-4">
-            <a type="submit" class="btn" @click="createPerson" href="/ticket/request">Request Ticket</a>
+            <a id="btn-home-request" type="submit" class="btn" @click="createPerson" href="/ticket/request">Request Ticket</a>
           </div>          
         </div>
         
@@ -254,15 +254,16 @@ export default {
   justify-content: center;
 }
 
-.btn {
+#btn-home-request {
   margin-top: 20px;
   align-content: center;
   background-color: #54426b;
+  color: white;
 }
 
 #form-ticket-home {
   padding-top: 10px;
-  border: 1px solid #004884;
+  border: 1px solid #54426b;
   padding-bottom: 15px;
   border-radius: 15px;
   margin-right: 50px;

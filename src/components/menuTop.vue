@@ -3,7 +3,7 @@
     <nav class="navbar navbar-expand-lg bg-light">
         <div class="container-fluid">
           <div class="nav-start">
-            <a class="navbar-brand" href="#" id="txt-nav-log">
+            <a class="navbar-brand" href="/" id="txt-nav-log">
              <img src="@/assets/resources/queue.png"
               width="60"
               height="50"/>
@@ -143,13 +143,13 @@ export default {
 }
 
 #txt-nav-log{
-  color: #004884;
+  color: #54426b;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-size: 1.8em;
 }
 
 #txt-nav {
-  color: #004884;
+  color: #54426b;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   font-size: 1.1em;
 }
