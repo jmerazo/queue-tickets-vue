@@ -1,78 +1,75 @@
 <template>
   <section class="container">
 
-    <form class="row">
-      
+    <form class="row">      
       <div id="btn-back">
         <a title="Back" id="btn-back-users-create-top" href="/users/list" class="btn" type="button"><font-awesome-icon id="fai-log-update-password" :icon="['fas', 'chevron-left']"/></a>
         <a title="Panel administrator" id="btn-register-user-top" href="/user/panel/administrator" class="btn" type="button"><font-awesome-icon :icon="['fas', 'columns']"/></a>       
       </div>
          
-        <div class="col-6" id="form-register-user">
-            <h2 class="title">User Register</h2>
-            <label class="subtitle">Fill out the form</label><br>
+      <div class="col-6" id="form-register-user">
+        <h2 id="register-title">User Register</h2>
+        <label id="register-subtitle">Fill out the form</label><br>
 
-            <div class="row">
-            <div class="col-6">
-              <font-awesome-icon id="fai-log" :icon="['fas', 'id-card']"/><label class="form-label">Document Type</label>
-              <select v-model="user.document_type" class="form-control" id="document_type">
-                <option value="" disabled>Select an option...</option>
-                <option value="Cédula de Ciudadanía">CC - Cédula de Ciudadanía</option>
-                <option value="Cédula de Extranjería">CE - Cédula de Extranjería</option>
-                <option value="Número de identificación personal">NIP - Número de identificación personal</option>
-                <option value="Número de identificación Tributaria">NIT - Número de identificación Tributaria</option>
-                <option value="Tarjeta de Identidad">TI - Tarjeta de Identidad</option>
-                <option value="Pasaporte">PAP - Pasaporte</option>
-              </select>
-            </div>
+        <div class="row">
+          <div class="col-6">
+            <font-awesome-icon id="fai-log" :icon="['fas', 'id-card']"/><label class="form-label">Document Type</label>
+            <select v-model="user.document_type" class="form-control" id="document_type">
+              <option value="" disabled>Select an option...</option>
+              <option value="Cédula de Ciudadanía">CC - Cédula de Ciudadanía</option>
+              <option value="Cédula de Extranjería">CE - Cédula de Extranjería</option>
+              <option value="Número de identificación personal">NIP - Número de identificación personal</option>
+              <option value="Número de identificación Tributaria">NIT - Número de identificación Tributaria</option>
+              <option value="Tarjeta de Identidad">TI - Tarjeta de Identidad</option>
+              <option value="Pasaporte">PAP - Pasaporte</option>
+            </select>
+          </div>
 
-            <div class="col-6">
-              <font-awesome-icon id="fai-log" :icon="['fas', 'list-ol']"/><label class="form-label">Document number</label>
-              <input v-model="user.document_number" type="text" class="form-control">
-            </div>
+          <div class="col-6">
+            <font-awesome-icon id="fai-log" :icon="['fas', 'list-ol']"/><label class="form-label">Document number</label>
+            <input v-model="user.document_number" type="text" class="form-control">
+          </div>
 
-            <div class="col-6">
-              <font-awesome-icon id="fai-log" :icon="['fas', 'file-text']"/><label class="form-label">Names</label>
-              <input v-model="user.names" type="text" class="form-control">
-            </div>
+          <div class="col-6">
+            <font-awesome-icon id="fai-log" :icon="['fas', 'file-text']"/><label class="form-label">Names</label>
+            <input v-model="user.names" type="text" class="form-control">
+          </div>
 
-            <div class="col-6">
-              <font-awesome-icon id="fai-log" :icon="['fas', 'file-text']"/><label class="form-label">Last Names</label>
-              <input v-model="user.last_names" type="text" class="form-control">
-            </div>
+          <div class="col-6">
+            <font-awesome-icon id="fai-log" :icon="['fas', 'file-text']"/><label class="form-label">Last Names</label>
+            <input v-model="user.last_names" type="text" class="form-control">
+          </div>
 
-            <div class="col-6">
-              <font-awesome-icon id="fai-log" :icon="['fas', 'mobile']"/><label class="form-label">Phone</label>
-              <input v-model="user.phone" type="text" class="form-control">
-            </div>
+          <div class="col-6">
+            <font-awesome-icon id="fai-log" :icon="['fas', 'mobile']"/><label class="form-label">Phone</label>
+            <input v-model="user.phone" type="text" class="form-control">
+          </div>
 
-            <div class="col-6">
-              <font-awesome-icon id="fai-log" :icon="['fas', 'envelope']"/><label class="form-label">Email</label>
-              <input v-model="user.email" type="email" class="form-control">
-            </div>
+          <div class="col-6">
+            <font-awesome-icon id="fai-log" :icon="['fas', 'envelope']"/><label class="form-label">Email</label>
+            <input v-model="user.email" type="email" class="form-control">
+          </div>
 
-            <div class="col-6">
-              <font-awesome-icon id="fai-log" :icon="['fas', 'building']"/><label class="form-label">Dependence</label>
-              <select v-model="dependence" @change="listSubdependences()" class="form-control" id="dependence">
-                <option value="" disabled>Select an option...</option>
-                <option v-for="dependence in dependences" :value="dependence" :key="dependence.id">{{dependence.name}}</option>
-              </select>            
-            </div>
+          <div class="col-6">
+            <font-awesome-icon id="fai-log" :icon="['fas', 'building']"/><label class="form-label">Dependence</label>
+            <select v-model="dependence" @change="listSubdependences()" class="form-control" id="dependence">
+              <option value="" disabled>Select an option...</option>
+              <option v-for="dependence in dependences" :value="dependence" :key="dependence.id">{{dependence.name}}</option>
+            </select>            
+          </div>
 
-            <div class="col-6">
-              <font-awesome-icon id="fai-log" :icon="['fas', 'building']"/><label class="form-label">Subdependence</label>
-              <select v-model="subdependence" class="form-control" id="subdependence">
-                <option value="" disabled>Select an option...</option>
-                <option v-for="subdependence in subdependences" :value="subdependence.id" :key="subdependence">{{subdependence.name}}</option>
-              </select>            
-            </div>
+          <div class="col-6">
+            <font-awesome-icon id="fai-log" :icon="['fas', 'building']"/><label class="form-label">Subdependence</label>
+            <select v-model="subdependence" class="form-control" id="subdependence">
+              <option value="" disabled>Select an option...</option>
+              <option v-for="subdependence in subdependences" :value="subdependence.id" :key="subdependence">{{subdependence.name}}</option>
+            </select>            
+          </div>
 
-            <div class="col-2">
-                <button id="btn-register-save" class="btn" @click="createUser">Save</button>
-            </div>
-          
+          <div class="col-2">
+              <button id="btn-register-save" class="btn" @click="createUser">Save</button>
+          </div>        
         </div>
-        
       </div>
     </form>       
   </section>     
@@ -198,18 +195,18 @@ export default {
 #btn-register-save {
   background-color: #54426b;
   color: white;
+  margin-top: 15px;
 }
 
 #form-register-user {
-  padding-top: 10px;
+  padding: 20px;
   border: 1px solid #54426b;
-  padding-bottom: 15px;
   border-radius: 15px;
   margin-right: 50px;
   margin-bottom: 80px;
 }
 
-.title {
+#register-title {
   display: flex;
   text-align: center;
   align-items: center;
@@ -217,7 +214,7 @@ export default {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-.subtitle {
+#register-subtitle {
   display: flex;
   text-align: center;
   align-items: center;

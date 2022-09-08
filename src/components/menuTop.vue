@@ -1,5 +1,5 @@
 <template>
-  <header class="header">
+  <div class="header">
     <nav class="navbar navbar-expand-lg bg-light">
         <div class="container-fluid">
           <div class="nav-start">
@@ -65,7 +65,7 @@
           </div>
         </div>          
       </nav>
-  </header>
+    </div>
 </template>
 <script>
 import axios from "axios";
@@ -113,8 +113,8 @@ export default {
   display: flex;
   background-color: #F6F8F9;
   border-bottom: 1px solid #E6EFFD;
-  border-bottom-right-radius: 30px;
-  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
 }
 
 .navbar {

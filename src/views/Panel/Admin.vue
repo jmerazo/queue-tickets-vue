@@ -24,6 +24,18 @@
                 Tickets
               </div>
             </a>
+            <a class="btn" id="card-item-padmin" href="">
+              <div class="card-body" id="card-body-item">
+                <font-awesome-icon id="fai-log" :icon="['fas', 'person']"/>
+                Persons
+              </div>
+            </a>
+            <a class="btn" id="card-item-padmin" href="">
+              <div class="card-body" id="card-body-item">
+                <font-awesome-icon id="fai-log" :icon="['fas', 'passport']"/>
+                Passports
+              </div>
+            </a>
         </form> 
     </section>
 </template>
