@@ -43,7 +43,11 @@ import {
     faLightbulb,
     faPhone,
     faPassport,
-    faUserGear
+    faUserGear,
+    faPlus,
+    faList,
+    faCodeCommit,
+    faSignature
 } from '@fortawesome/free-solid-svg-icons'
 import { 
     faFacebook, 
@@ -90,7 +94,12 @@ library.add(
     faYoutube,
     faPhone,
     faPassport,
-    faUserGear
+    faUserGear,
+    faPenToSquare,
+    faPlus,
+    faList,
+    faCodeCommit,
+    faSignature
 )
 
 createApp(App)

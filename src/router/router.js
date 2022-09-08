@@ -14,7 +14,9 @@ import PassportRequest from '@/views/Passport/Register.vue'
 import Profile from '@/views/Users/Profile.vue'
 
 // Areas
-import AreasList from '@/views/Areas/List.vue'
+import AreasList from '@/views/Areas/ListDependences.vue'
+import SubareasList from '@/views/Areas/ListSubdependencies.vue'
+import AddDependence from '@/views/Areas/AddDependence.vue'
 
 const routes = [
     {
@@ -131,6 +133,29 @@ const routes = [
         path: '/areas/list',
         name: 'AreasList',
         component: AreasList,
+        meta: {
+            auth:true
+        }
+    },
+    {
+        path: '/subareas/list',
+        name: 'SubareasList',
+        component: SubareasList,
+        meta: {
+            auth:true
+        }
+    },
+    {
+        path: '/dependence/delete/:id',
+        name: 'SubDelete',
+        meta: {
+            auth:true
+        }
+    },
+    {
+        path: '/dependence/create',
+        name: 'AddDependence',
+        component: AddDependence,
         meta: {
             auth:true
         }

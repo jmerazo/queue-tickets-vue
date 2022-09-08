@@ -8,7 +8,7 @@
                             
           <div class="row">
             <div>
-              <h2 class="title">Users</h2>
+              <h2 id="list-users-title">Users</h2>
             </div> 
             
               <div class="col-11" id="form-users-list">
@@ -37,7 +37,7 @@
                           <td>{{user.sname}}</td>
                           <td v-if="user.status == 1" style="color:darkcyan;">Activo</td>
                           <td v-if="user.status == 0" style="color:firebrick">Inactivo</td>
-                          <td id="td-action">
+                          <td id="td-action-users">
                             <a id="il-cfg" title="Add" type="submit"><router-link :to="{name: 'userCreate', params: {id: user.id}}"><font-awesome-icon id="fai-list" :icon="['fas', 'user-plus']"/></router-link></a>
                             <a id="il-cfg" title="Update" type="submit"><router-link :to="{name: 'userUpdate', params: {id: user.id, document_type: user.document_type, document_number: user.document_number, names: user.names, last_names: user.last_names, phone: user.phone, email: user.email, dependence_id: user.dependence_id, subdependence_id: user.subdependence_id}}"><font-awesome-icon id="fai-list" :icon="['fas', 'user-pen']"/></router-link></a>
                             <a id="il-cfg" title="Change Password" type="submit"><router-link :to="{name: 'passwordUpdate', params: {id: user.id, email: user.email}}"><font-awesome-icon id="fai-list" :icon="['fas', 'key']"/></router-link></a>
@@ -154,7 +154,7 @@ export default {
   color: rgb(0, 0, 0);
 }
 
-#td-action{
+#td-action-users{
   width: 140px;
 }
 
@@ -192,15 +192,7 @@ export default {
   border-radius: 20px; 
 }
 
-.title {
-  display: flex;
-  text-align: center;
-  align-items: center;
-  justify-content: center;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-}
-
-.subtitle {
+#list-users-title {
   display: flex;
   text-align: center;
   align-items: center;
