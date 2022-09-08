@@ -16,27 +16,20 @@
                     <thead class="thead-dark">
                       <tr id="tr-title">
                           <!--th>Document</th-->
-                          <th>Identification</th>
-                          <th>Names</th>
-                          <th>Phone</th>
-                          <th>Email</th>
-                          <th>Dependence</th>
-                          <th>Subdep</th>
-                          <th>Status</th>
-                          <th>Actión</th>
+                          <th>Name</th>
+                          <th>Code</th>
+                          <th>Created</th>
+                          <th>Updated</th>
+                          <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="user in users_list" :value="user.id" :key="user.id">
+                      <tr v-for="dep in dependences" :value="dep.id" :key="dep.id">
                           <!--td>{{user.document_type}}</td-->
-                          <td>{{user.document_number}}</td>
-                          <td>{{user.names +" "+ user.last_names}}</td>
-                          <td>{{user.phone}}</td>
-                          <td>{{user.email}}</td>
-                          <td>{{user.dname}}</td>
-                          <td>{{user.sname}}</td>
-                          <td v-if="user.status == 1" style="color:darkcyan;">Activo</td>
-                          <td v-if="user.status == 0" style="color:firebrick">Inactivo</td>
+                          <td>{{dep.name}}</td>
+                          <td>{{dep.code}}</td>
+                          <td>{{dep.created}}</td>
+                          <td>{{dep.updated}}</td>
                           <td id="td-action">
                             <a id="il-cfg" title="Add" type="submit"><router-link :to="{name: 'userCreate', params: {id: user.id}}"><font-awesome-icon id="fai-list" :icon="['fas', 'user-plus']"/></router-link></a>
                             <a id="il-cfg" title="Update" type="submit"><router-link :to="{name: 'userUpdate', params: {id: user.id, document_type: user.document_type, document_number: user.document_number, names: user.names, last_names: user.last_names, phone: user.phone, email: user.email, dependence_id: user.dependence_id, subdependence_id: user.subdependence_id}}"><font-awesome-icon id="fai-list" :icon="['fas', 'user-pen']"/></router-link></a>
@@ -56,7 +49,6 @@
 
 <script>
 import axios from "axios";
-import dictionary from '@/helpers/dictionary'
 
 export default {
   components: {
@@ -64,21 +56,20 @@ export default {
   name: "Users-List",
   data() {
     return {
-      users_list: [],
-      udelete: null,
-      dependences: dictionary.dependences,
-      subdependences: dictionary.subdependences,
-      stat: dictionary.status
+      dependences: [],
+      subdependencies: [],
+      udelete: null
     };    
   },
   mounted() {
-    this.usersList();
+    this.dependencesList();
+    this.subdependenciesList();
   },
   computed: {
   },
   methods: {
-    async usersList(){
-      await axios.get("http://localhost:8888/apitickets/users", {
+    async dependencesList(){
+      await axios.get("http://localhost:8888/apitickets/dependences", {
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*"
@@ -87,7 +78,20 @@ export default {
       .then((Response) => {
         console.log(Response.data);
         console.log("Users by: ", Response.data)
-        this.users_list = Response.data;
+        this.dependences = Response.data;
+      });
+    },
+    async subdependenciesList(){
+      await axios.get("http://localhost:8888/apitickets/subdependencies", {
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*"
+        }
+      })
+      .then((Response) => {
+        console.log(Response.data);
+        console.log("Users by: ", Response.data)
+        this.subdependencies = Response.data;
       });
     },
     async userDelete(){

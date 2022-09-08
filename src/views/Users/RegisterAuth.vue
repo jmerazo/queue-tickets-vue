@@ -7,29 +7,29 @@
         <a title="Panel administrator" id="btn-auth-user-top" href="/user/panel/administrator" class="btn" type="button"><font-awesome-icon :icon="['fas', 'columns']"/></a>       
       </div>      
          
-        <div class="col-12" id="form-auth-user">
+        <div class="col-6" id="form-auth-user">
             <h2 id="auth-title">User Data</h2>
             <label id="auth-subtitle">Fill out the form</label><br>
             <div class="row">
-              <div class="col-6">
-                <label class="form-label">Username</label>
+              <div class="col-12">
+                <font-awesome-icon id="fai-log" :icon="['fas', 'user']"/><label class="form-label">Username</label>
                 <input v-model="user.username" type="text" class="form-control">
               </div>
 
-              <div class="col-6">
-                  <label class="form-label">Password</label>
-                  <input v-model="user.password" type="password" class="form-control">
-              </div>
-
-              <div class="col-6">
-                  <label class="form-label">Rol</label>
-                  <select v-model="rol_id" class="form-control" id="rol">
-                  <option value="" disabled>Select an option...</option>
-                  <option v-for="rol in roles" :value="rol" :key="rol.id">{{rol.name}}</option>
-                  </select>            
+              <div class="col-12">
+                <font-awesome-icon id="fai-log" :icon="['fas', 'key']"/><label class="form-label">Password</label>
+                <input v-model="user.password" type="password" class="form-control">
               </div>
 
               <div class="col-12">
+                <font-awesome-icon id="fai-log" :icon="['fas', 'user-gear']"/><label class="form-label">Rol</label>
+                <select v-model="rol_id" class="form-control" id="rol">
+                  <option value="" disabled>Select an option...</option>
+                  <option v-for="rol in roles" :value="rol" :key="rol.id">{{rol.name}}</option>
+                </select>            
+              </div>
+
+              <div id="div-btn-auth-save" class="col-12">
                   <button id="btn-auth-save" class="btn" @click="createUser">Save</button>
               </div>
             </div>          
@@ -139,6 +139,10 @@ export default {
   color: white;
 }
 
+#div-btn-auth-save{
+  text-align: center;
+}
+
 #form-auth-user {
   padding-top: 10px;
   border: 1px solid #54426b;
@@ -147,7 +151,6 @@ export default {
   margin-right: 50px;
   align-items: center;
   justify-items: center;
-  text-align: center;
 }
 
 #auth-title {

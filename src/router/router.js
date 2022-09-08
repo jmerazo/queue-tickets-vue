@@ -13,6 +13,9 @@ import TicketRequest from '@/views/Tickets/Request.vue'
 import PassportRequest from '@/views/Passport/Register.vue'
 import Profile from '@/views/Users/Profile.vue'
 
+// Areas
+import AreasList from '@/views/Areas/List.vue'
+
 const routes = [
     {
         path: '/',
@@ -122,6 +125,14 @@ const routes = [
         component: PassportRequest,
         meta: {
             auth:false
+        }
+    },
+    {
+        path: '/areas/list',
+        name: 'AreasList',
+        component: AreasList,
+        meta: {
+            auth:true
         }
     }
 ]

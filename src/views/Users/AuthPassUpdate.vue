@@ -1,25 +1,29 @@
 <template>
   <section class="container">
 
-    <form class="row">              
-        <a href="/users/list" id="btn-update-password-top" class="btn" type="button"><font-awesome-icon id="fai-log-update-password" :icon="['fas', 'chevron-left']"/></a>       
-        <div class="col-12" id="form-ticket-update-pass">
-            <h2 class="title">Password Update</h2>
+    <form class="row"> 
+        <div id="btn-back">
+          <a href="/users/list" id="btn-update-password-top" class="btn" type="button"><font-awesome-icon id="fai-log-update-password" :icon="['fas', 'chevron-left']"/></a> 
+        </div>              
+        
+        <div class="col-6" id="form-ticket-update-pass">
+            <h2 class="auth-pass-title">Password Update</h2>
 
-            <div class="col-6">
-              <font-awesome-icon id="fai-log" :icon="['fas', 'envelope']"/><label class="form-label">Email</label>
-              <input id="i-email" v-model="user.username" type="text" class="form-control" disabled>
-            </div>
+            <div class="row">
+              <div class="col-12">
+                <font-awesome-icon id="fai-log" :icon="['fas', 'envelope']"/><label class="form-label">Email</label>
+                <input id="i-email" v-model="user.username" type="text" class="form-control" disabled>
+              </div>
 
-            <div class="col-6">
-              <font-awesome-icon id="fai-log" :icon="['fas', 'unlock']"/><label class="form-label">Password</label>
-              <input id="i-email" v-model="user.password" type="password" class="form-control">
-            </div>
+              <div class="col-12">
+                <font-awesome-icon id="fai-log" :icon="['fas', 'unlock']"/><label class="form-label">Password</label>
+                <input id="i-email" v-model="user.password" type="password" class="form-control">
+              </div>
 
-            <div class="col-2">
-                <button id="btn-update-password" class="btn" @click="updatePassword">Save</button>
-            </div>
-          
+              <div class="col-12">
+                  <button id="btn-update-password" class="btn" @click="updatePassword">Save</button>
+              </div>
+            </div>          
         </div>
     </form>       
   </section>     
@@ -130,15 +134,7 @@ export default {
   align-content: center;
 }
 
-.title {
-  display: flex;
-  text-align: center;
-  align-items: center;
-  justify-content: center;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-}
-
-.subtitle {
+#auth-pass-title {
   display: flex;
   text-align: center;
   align-items: center;

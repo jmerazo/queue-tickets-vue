@@ -11,7 +11,7 @@
               </div>
             </a>
 
-            <a class="btn" id="card-item-padmin" href="">
+            <a class="btn" id="card-item-padmin" href="/areas/list">
               <div class="card-body" id="card-body-item">
                 <font-awesome-icon id="fai-log" :icon="['fas', 'building']"/>
                 Areas

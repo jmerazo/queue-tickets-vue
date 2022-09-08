@@ -47,7 +47,7 @@
   
               <div class="col-6">
                 <font-awesome-icon id="fai-log" :icon="['fas', 'envelope']"/><label class="form-label">Email</label>
-                <input v-model="upUser.email" type="email" class="form-control">
+                <input v-model="upUser.email" type="email" class="form-control" disabled>
               </div>
   
               <div class="col-6">
