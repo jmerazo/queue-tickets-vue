@@ -2,8 +2,8 @@
     <section class="container">
         <form class="ctn-form">          
           <div id="btn-back">
-            <a id="btn-back-users-list-top" href="/user/panel/administrator" class="btn" type="button"><font-awesome-icon id="fai-log-update-password" :icon="['fas', 'chevron-left']"/></a>
-            <a id="btn-register-user-top" href="/dependence/create" class="btn" type="button"><font-awesome-icon id="fai-user-list" :icon="['fas', 'plus']"/></a>       
+            <router-link id="btn-back-users-list-top" :to="{name: 'admin'}" class="btn" type="button"><font-awesome-icon id="fai-log-update-password" :icon="['fas', 'chevron-left']"/></router-link>
+            <router-link id="btn-register-user-top" :to="{name: 'AddDependence'}" class="btn" type="button"><font-awesome-icon id="fai-user-list" :icon="['fas', 'plus']"/></router-link>       
           </div>
                             
           <div class="row">
@@ -30,9 +30,9 @@
                           <td>{{dep.created}}</td>
                           <td>{{dep.updated}}</td>
                           <td id="td-action">
-                            <a id="il-cfg" title="List dependences" type="submit"><router-link :to="{name: 'SubareasList', params: {id: dep.id}}"><font-awesome-icon id="fai-list" :icon="['fas', 'list']"/></router-link></a>
-                            <a id="il-cfg" title="Update" type="submit"><router-link :to="{name: 'UpdateDependence', params: {id: dep.id, name: dep.name, code: dep.code}}"><font-awesome-icon id="fai-list" :icon="['fas', 'pen-to-square']"/></router-link></a>
-                            <a id="il-cfg" title="Delete" type="submit" @click="depDelete()"><router-link :to="{name: 'SubDelete', params: {id: dep.id}}"><font-awesome-icon id="fai-list" :icon="['fas', 'trash']"/></router-link></a>
+                            <router-link id="il-cfg" title="List dependences" @click="storageIdep(dep.id)" type="submit" :to="{name: 'SubareasList', params: {id: dep.id}}"><font-awesome-icon id="fai-list" :icon="['fas', 'list']"/></router-link>
+                            <router-link id="il-cfg" title="Update" type="submit" :to="{name: 'UpdateDependence', params: {id: dep.id, name: dep.name, code: dep.code}}"><font-awesome-icon id="fai-list" :icon="['fas', 'pen-to-square']"/></router-link>
+                            <router-link id="il-cfg" title="Delete" type="submit" @click="depDelete(dep.id)" :to="{name: 'SubDelete', params:{id: dep.id}}"><font-awesome-icon id="fai-list" :icon="['fas', 'trash']"/></router-link>
                           </td>
                       </tr>
                     </tbody>
@@ -62,6 +62,10 @@ export default {
   computed: {
   },
   methods: {
+    storageIdep(iddep){
+      localStorage.setItem('idep', iddep)
+      return true;
+    },
     async dependencesList(){
       await axios.get("http://localhost:8888/apitickets/dependences", {
         headers: {
@@ -73,9 +77,9 @@ export default {
         this.dependences = Response.data;
       });
     },
-    async depDelete(){
-      this.idelete = this.$route.params.id;
-      await axios.delete(`http://localhost:8888/apitickets/dependence/delete/${this.idelete}`,{
+    async depDelete(id){
+      //this.idelete = this.$route.params.id;
+      await axios.delete(`http://localhost:8888/apitickets/dependence/delete/${id}`,{
           headers: {
             "Content-Type": "application/json",
             "Access-Control-Allow-Origin": "*"

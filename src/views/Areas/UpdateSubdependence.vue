@@ -3,13 +3,12 @@
 
     <form class="row">
       <div id="btn-back">
-        <router-link title="Back" id="btn-back-auth-create-top" :to="{name: 'AreasList'}" class="btn" type="button"><font-awesome-icon id="fai-log-update-password" :icon="['fas', 'chevron-left']"/></router-link>
+        <router-link title="Back" id="btn-back-auth-create-top" :to="{name: 'SubareasList'}" class="btn" type="button"><font-awesome-icon id="fai-log-update-password" :icon="['fas', 'chevron-left']"/></router-link>
         <router-link title="Panel administrator" id="btn-auth-user-top" :to="{name: 'admin'}" class="btn" type="button"><font-awesome-icon :icon="['fas', 'columns']"/></router-link>       
       </div>      
          
         <div class="col-6" id="form-auth-user">
-            <h2 id="auth-title">Dependence Data</h2>
-            <label id="auth-subtitle">Fill out the form</label><br>
+            <h2 id="auth-title">Subdependence Update</h2><br>
             <div class="row">
               <div class="col-12">
                 <font-awesome-icon id="fai-log" :icon="['fas', 'signature']"/><label class="form-label">Name</label>
@@ -22,7 +21,7 @@
               </div>
 
               <div id="div-btn-auth-save" class="col-12">
-                  <button id="btn-auth-save" class="btn" @click="createDep">Save</button>
+                  <button id="btn-auth-save" class="btn" @click="updateSub">Save</button>
               </div>
             </div>          
         </div>
@@ -39,8 +38,8 @@ export default {
   name: "authRegister-AQ",
   data() {
     return {
-      name: "",
-      code: ""
+      name: this.$route.params.name,
+      code: this.$route.params.code
     };    
   },
   mounted() {
@@ -48,20 +47,25 @@ export default {
   computed: {
   },
   methods: {
-    async createDep() {
-      const depData = JSON.stringify({
+    async updateSub() {
+      const subData = JSON.stringify({
         name : this.name,
-        code : this.code
+        code : this.code,
+        dependence_id : localStorage.getItem('idep')
       })
-      await axios.post(`http://localhost:8888/apitickets/dependence/create`, depData, {
+      const id =  this.$route.params.id;
+      await axios.put(`http://localhost:8888/apitickets/subdependence/update/${id}`, subData, {
         headers: {
           "Content-Type": "application/json"
         }
       })
       .then(() => {
         this.clearInputsForm1();
-        this.$router.push('/areas/list');
-      });
+        this.$router.push('/subareas/list');
+      })
+      .catch((err) =>{
+        console.log(err)
+      })
     },
     clearInputsForm1(){
       this.name = "",

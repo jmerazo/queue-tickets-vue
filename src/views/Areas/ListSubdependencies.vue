@@ -2,8 +2,8 @@
     <section class="container">
         <form class="ctn-form">          
           <div id="btn-back">
-            <a id="btn-back-users-list-top" href="/areas/list" class="btn" type="button"><font-awesome-icon id="fai-log-update-password" :icon="['fas', 'chevron-left']"/></a>
-            <a id="btn-register-user-top" href="/user/create" class="btn" type="button"><font-awesome-icon id="fai-user-list" :icon="['fas', 'plus']"/></a>       
+            <router-link id="btn-back-users-list-top" :to="{name: 'AreasList'}" class="btn" type="button"><font-awesome-icon id="fai-log-update-password" :icon="['fas', 'chevron-left']"/></router-link>
+            <router-link id="btn-register-user-top" :to="{name: 'AddSubdependence'}" class="btn" type="button"><font-awesome-icon id="fai-user-list" :icon="['fas', 'plus']"/></router-link>       
           </div>
                             
           <div class="row">
@@ -30,9 +30,9 @@
                           <td>{{sub.code}}</td>
                           <td>{{sub.created}}</td>
                           <td>{{sub.updated}}</td>
-                          <td id="td-action">
-                            <a id="il-cfg" title="Update" type="submit"><router-link :to="{name: 'userUpdate', params: {id: sub.id, name: sub.name, code: sub.code}}"><font-awesome-icon id="fai-list" :icon="['fas', 'pen-to-square']"/></router-link></a>
-                            <a id="il-cfg" title="Delete" type="submit" @click="subDelete()"><router-link :to="{name: 'SubDelete', params: {id: sub.id}}"><font-awesome-icon id="fai-list" :icon="['fas', 'trash']"/></router-link></a>
+                          <td id="td-action-sub">
+                            <router-link id="il-cfg" title="Update" type="submit" :to="{name: 'UpdateSubdependence', params: {id: sub.id, name: sub.name, code: sub.code}}"><font-awesome-icon id="fai-list" :icon="['fas', 'pen-to-square']"/></router-link>
+                            <router-link id="il-cfg" title="Delete" type="submit" @click="subDelete(sub.id)" :to="{name: 'SubDelete', params: {id: sub.id}}"><font-awesome-icon id="fai-list" :icon="['fas', 'trash']"/></router-link>
                           </td>
                       </tr>
                     </tbody>
@@ -54,11 +54,12 @@ export default {
     return {
       subdependencies: [],
       delid: null,
-      idep: this.$route.params.id
+      idep: localStorage.getItem('idep')
     };    
   },
   mounted() {
     this.subdependenciesList();
+    console.log("ID Dependence: ", localStorage.getItem('idep'))
   },
   computed: {
   },
@@ -78,9 +79,8 @@ export default {
         });
       }
     },
-    async subDelete(){
-      this.delid = this.$route.params.id;
-      await axios.delete(`http://localhost:8888/apitickets/subdependence/delete/${this.delid}`,{
+    async subDelete(sudid){
+      await axios.delete(`http://localhost:8888/apitickets/subdependence/delete/${sudid}`,{
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*"
@@ -90,7 +90,7 @@ export default {
         if(!Response){
           console.log("Error")
         }
-        this.$router.push('/areas/list');
+        this.$router.push('/subareas/list');
       });
     }
   }
@@ -123,8 +123,8 @@ export default {
   color: rgb(0, 0, 0);
 }
 
-#td-action{
-  width: 80px;
+#td-action-sub{
+  width: 50px;
 }
 
 #tf-1{

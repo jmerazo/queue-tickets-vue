@@ -18,6 +18,8 @@ import AreasList from '@/views/Areas/ListDependences.vue'
 import SubareasList from '@/views/Areas/ListSubdependencies.vue'
 import AddDependence from '@/views/Areas/AddDependence.vue'
 import UpdateDependence from '@/views/Areas/UpdateDependence.vue'
+import AddSubdependence from '@/views/Areas/AddSubdependence.vue'
+import UpdateSubdependence from '@/views/Areas/UpdateSubdependence.vue'
 
 const routes = [
     {
@@ -165,6 +167,22 @@ const routes = [
         path: '/dependence/update/:id',
         name: 'UpdateDependence',
         component: UpdateDependence,
+        meta: {
+            auth:true
+        }
+    },
+    {
+        path: '/subdependence/create',
+        name: 'AddSubdependence',
+        component: AddSubdependence,
+        meta: {
+            auth:true
+        }
+    },
+    {
+        path: '/subdependence/update/:id',
+        name: 'UpdateSubdependence',
+        component: UpdateSubdependence,
         meta: {
             auth:true
         }

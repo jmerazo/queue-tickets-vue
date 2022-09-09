@@ -3,12 +3,12 @@
 
     <form class="row">
       <div id="btn-back">
-        <router-link title="Back" id="btn-back-auth-create-top" :to="{name: 'AreasList'}" class="btn" type="button"><font-awesome-icon id="fai-log-update-password" :icon="['fas', 'chevron-left']"/></router-link>
+        <router-link title="Back" id="btn-back-auth-create-top" :to="{name: 'SubareasList'}" class="btn" type="button"><font-awesome-icon id="fai-log-update-password" :icon="['fas', 'chevron-left']"/></router-link>
         <router-link title="Panel administrator" id="btn-auth-user-top" :to="{name: 'admin'}" class="btn" type="button"><font-awesome-icon :icon="['fas', 'columns']"/></router-link>       
       </div>      
          
         <div class="col-6" id="form-auth-user">
-            <h2 id="auth-title">Dependence Data</h2>
+            <h2 id="auth-title">Subependence Data</h2>
             <label id="auth-subtitle">Fill out the form</label><br>
             <div class="row">
               <div class="col-12">
@@ -22,7 +22,7 @@
               </div>
 
               <div id="div-btn-auth-save" class="col-12">
-                  <button id="btn-auth-save" class="btn" @click="createDep">Save</button>
+                <button id="btn-auth-save" class="btn" @click="createSub">Save</button>
               </div>
             </div>          
         </div>
@@ -48,19 +48,20 @@ export default {
   computed: {
   },
   methods: {
-    async createDep() {
+    async createSub() {
       const depData = JSON.stringify({
         name : this.name,
-        code : this.code
+        code : this.code,
+        dependence_id : localStorage.getItem('idep')
       })
-      await axios.post(`http://localhost:8888/apitickets/dependence/create`, depData, {
+      await axios.post(`http://localhost:8888/apitickets/subdependence/create`, depData, {
         headers: {
           "Content-Type": "application/json"
         }
       })
       .then(() => {
         this.clearInputsForm1();
-        this.$router.push('/areas/list');
+        this.$router.push('/subareas/list');
       });
     },
     clearInputsForm1(){
