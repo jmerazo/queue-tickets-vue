@@ -17,6 +17,7 @@ import Profile from '@/views/Users/Profile.vue'
 import AreasList from '@/views/Areas/ListDependences.vue'
 import SubareasList from '@/views/Areas/ListSubdependencies.vue'
 import AddDependence from '@/views/Areas/AddDependence.vue'
+import UpdateDependence from '@/views/Areas/UpdateDependence.vue'
 
 const routes = [
     {
@@ -156,6 +157,14 @@ const routes = [
         path: '/dependence/create',
         name: 'AddDependence',
         component: AddDependence,
+        meta: {
+            auth:true
+        }
+    },
+    {
+        path: '/dependence/update/:id',
+        name: 'UpdateDependence',
+        component: UpdateDependence,
         meta: {
             auth:true
         }

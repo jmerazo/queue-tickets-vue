@@ -31,8 +31,8 @@
                           <td>{{dep.updated}}</td>
                           <td id="td-action">
                             <a id="il-cfg" title="List dependences" type="submit"><router-link :to="{name: 'SubareasList', params: {id: dep.id}}"><font-awesome-icon id="fai-list" :icon="['fas', 'list']"/></router-link></a>
-                            <a id="il-cfg" title="Update" type="submit"><router-link :to="{name: 'userUpdate', params: {id: dep.id, name: dep.name, code: dep.code}}"><font-awesome-icon id="fai-list" :icon="['fas', 'pen-to-square']"/></router-link></a>
-                            <a id="il-cfg" title="Delete" type="submit" @click="subDelete()"><router-link :to="{name: 'SubDelete', params: {id: dep.id}}"><font-awesome-icon id="fai-list" :icon="['fas', 'trash']"/></router-link></a>
+                            <a id="il-cfg" title="Update" type="submit"><router-link :to="{name: 'UpdateDependence', params: {id: dep.id, name: dep.name, code: dep.code}}"><font-awesome-icon id="fai-list" :icon="['fas', 'pen-to-square']"/></router-link></a>
+                            <a id="il-cfg" title="Delete" type="submit" @click="depDelete()"><router-link :to="{name: 'SubDelete', params: {id: dep.id}}"><font-awesome-icon id="fai-list" :icon="['fas', 'trash']"/></router-link></a>
                           </td>
                       </tr>
                     </tbody>
@@ -70,12 +70,10 @@ export default {
         }
       })
       .then((Response) => {
-        console.log(Response.data);
-        console.log("Dependences: ", Response.data)
         this.dependences = Response.data;
       });
     },
-    async subDelete(){
+    async depDelete(){
       this.idelete = this.$route.params.id;
       await axios.delete(`http://localhost:8888/apitickets/dependence/delete/${this.idelete}`,{
           headers: {

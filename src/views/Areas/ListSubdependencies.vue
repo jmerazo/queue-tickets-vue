@@ -31,9 +31,8 @@
                           <td>{{sub.created}}</td>
                           <td>{{sub.updated}}</td>
                           <td id="td-action">
-                            <a id="il-cfg" title="List dependences" type="submit"><router-link :to="{name: 'userDelete', params: {id: sub.id}}"><font-awesome-icon id="fai-list" :icon="['fas', 'list']"/></router-link></a>
                             <a id="il-cfg" title="Update" type="submit"><router-link :to="{name: 'userUpdate', params: {id: sub.id, name: sub.name, code: sub.code}}"><font-awesome-icon id="fai-list" :icon="['fas', 'pen-to-square']"/></router-link></a>
-                            <a id="il-cfg" title="Delete" type="submit" @click="depDelete()"><router-link :to="{name: 'SubDelete', params: {id: sub.id}}"><font-awesome-icon id="fai-list" :icon="['fas', 'trash']"/></router-link></a>
+                            <a id="il-cfg" title="Delete" type="submit" @click="subDelete()"><router-link :to="{name: 'SubDelete', params: {id: sub.id}}"><font-awesome-icon id="fai-list" :icon="['fas', 'trash']"/></router-link></a>
                           </td>
                       </tr>
                     </tbody>
@@ -79,9 +78,9 @@ export default {
         });
       }
     },
-    async depDelete(){
+    async subDelete(){
       this.delid = this.$route.params.id;
-      await axios.delete(`http://localhost:8888/apitickets/dependence/delete/${this.delid}`,{
+      await axios.delete(`http://localhost:8888/apitickets/subdependence/delete/${this.delid}`,{
         headers: {
           "Content-Type": "application/json",
           "Access-Control-Allow-Origin": "*"
