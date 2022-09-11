@@ -53,8 +53,8 @@
                     <li v-show="uid"><h6 id="t-log">{{ this.names +' '+this.last_names }}</h6></li>
                     <li class="divider"></li>
                     <li v-show="!uid"><a class="dropdown-item" href="/users/login"><font-awesome-icon id="fai-log" :icon="['fas', 'user-lock']"/>Login</a></li>
-                    <li v-show="this.rol == 1 || this.rol == 2 && uid"><a class="dropdown-item" href="/user/panel"><font-awesome-icon id="fai-log" :icon="['fas', 'columns']"/>Panel</a></li>
-                    <li v-show="this.rol != 1 || this.rol != 2 && uid"><a class="dropdown-item" href="/user/panel/administrator"><font-awesome-icon id="fai-log" :icon="['fas', 'columns']"/>Panel</a></li>
+                    <li v-show="this.rol != 1 || this.rol != 2 && uid"><a class="dropdown-item" href="/user/panel"><font-awesome-icon id="fai-log" :icon="['fas', 'columns']"/>Panel</a></li>
+                    <li v-show="this.rol == 1 || this.rol == 2 && uid"><a class="dropdown-item" href="/user/panel/administrator"><font-awesome-icon id="fai-log" :icon="['fas', 'columns']"/>Panel</a></li>
                     <li v-show="uid"><a class="dropdown-item" href="/user/profile"><font-awesome-icon id="fai-log" :icon="['fas', 'address-card']"/>Profile</a></li>
                     <li class="divider"></li>
                     <li v-show="uid"><a class="dropdown-item" type="button" @click="logOut"><font-awesome-icon id="fai-log" :icon="['fas', 'right-from-bracket']"/>Log out</a></li>
@@ -103,6 +103,7 @@ export default {
     logOut() {
       localStorage.removeItem("token")
       localStorage.removeItem('user_id')
+      localStorage.removeItem('rol')
       this.$router.push('/users/login')
     }   
   }

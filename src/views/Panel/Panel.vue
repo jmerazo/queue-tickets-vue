@@ -3,6 +3,10 @@
     <form class="row">
       <h2 id="title-panel-basic">Welcome</h2>
       <label id="subtitle-panel-basic">{{ this.names +' '+this.last_names }}</label>
+      <div id="btn-back">
+        <router-link title="Days available" id="btn-register-user-top" :to="{name: 'AddDependence'}" class="btn" type="button"><font-awesome-icon :icon="['fas', 'calendar']"/></router-link>
+        <router-link title="Hours available" id="btn-register-user-top" :to="{name: 'ListTimes'}" class="btn" type="button"><font-awesome-icon :icon="['fas', 'clock']"/></router-link>       
+      </div>
         <div>
           <h2 id="tickets-title">List Tickets</h2>
         </div>
@@ -32,10 +36,9 @@
                 </td>
               </tr>
             </table>
+            <v-date-picker v-model="date" color="purple" :value="null" is-dark is-range/>
           </div>
-          <div>
-            <v-calendar></v-calendar>
-          </div>
+          
         </div>
     </form>
   </section>
@@ -46,7 +49,7 @@ import axios from "axios";
 
 export default {
   components: {
-
+    
   },
   name: "ListTickets-AQ",
   data() {
@@ -55,7 +58,8 @@ export default {
       names: "",
       last_names: "",
       tickets: [],
-      selectedDate: ""
+      selectedDate: "",
+      date: ""
     };
   },
   mounted() {

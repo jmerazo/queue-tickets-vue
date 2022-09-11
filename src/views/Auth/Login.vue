@@ -76,7 +76,7 @@ export default {
           store.state.user_id = this.userid;
           console.log("Login id user: ",store.state.user_id);
           localStorage.setItem('user_id', response.data.user_id);
-          localStorage.setItem('rol', response.data.rol);        
+          localStorage.setItem('rol', response.data.rol_id);        
 
           if(this.status == 1){
             if(this.rol == 1 || this.rol == 2){
