@@ -7,7 +7,6 @@ import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { SetupCalendar, Calendar, DatePicker } from 'v-calendar'
 
 // Import icons fortawesome
 import { 
@@ -107,8 +106,5 @@ createApp(App)
     .use(router)
     .use(Vuex)
     .use(Toaster)
-    .use(SetupCalendar)
-    .component("Calendar", Calendar)
-    .component("DatePicker", DatePicker)
     .component('font-awesome-icon', FontAwesomeIcon)
     .mount('#app')
