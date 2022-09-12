@@ -7,6 +7,8 @@ import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import VCalendar from 'v-calendar'
+import 'v-calendar/dist/style.css';
 
 // Import icons fortawesome
 import { 
@@ -47,7 +49,9 @@ import {
     faPlus,
     faList,
     faCodeCommit,
-    faSignature
+    faSignature,
+    faToggleOn,
+    faToggleOff
 } from '@fortawesome/free-solid-svg-icons'
 import { 
     faFacebook, 
@@ -99,12 +103,15 @@ library.add(
     faPlus,
     faList,
     faCodeCommit,
-    faSignature
+    faSignature,
+    faToggleOn,
+    faToggleOff
 )
 
 createApp(App)
     .use(router)
     .use(Vuex)
     .use(Toaster)
+    .use(VCalendar, {})
     .component('font-awesome-icon', FontAwesomeIcon)
     .mount('#app')

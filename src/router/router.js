@@ -1,14 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
 import Home from '@/views/Home.vue';
-import Login from '@/views/Users/Login.vue';
+import Login from '@/views/Auth/Login.vue';
 import Register from '@/views/Users/Register.vue';
 import Panel from '@/views/Panel/Panel.vue';
 import Admin from '@/views/Panel/Admin.vue'
 import UsersList from '@/views/Users/List.vue'
-import UserAuthCreate from '@/views/Users/RegisterAuth.vue'
+import UserAuthCreate from '@/views/Auth/RegisterAuth.vue'
 import UserUpdate from '@/views/Users/Update.vue'
-import PasswordUpdate from '@/views/Users/AuthPassUpdate.vue'
+import PasswordUpdate from '@/views/Auth/AuthPassUpdate.vue'
 import TicketRequest from '@/views/Tickets/Request.vue'
 import PassportRequest from '@/views/Passport/Register.vue'
 import Profile from '@/views/Users/Profile.vue'
@@ -20,6 +20,10 @@ import AddDependence from '@/views/Areas/AddDependence.vue'
 import UpdateDependence from '@/views/Areas/UpdateDependence.vue'
 import AddSubdependence from '@/views/Areas/AddSubdependence.vue'
 import UpdateSubdependence from '@/views/Areas/UpdateSubdependence.vue'
+
+// Calendar
+import ListTimes from '@/views/Calendar/ConfigCalendar.vue'
+import ListDays from '@/views/Calendar/ListDays.vue'
 
 const routes = [
     {
@@ -183,6 +187,29 @@ const routes = [
         path: '/subdependence/update/:id',
         name: 'UpdateSubdependence',
         component: UpdateSubdependence,
+        meta: {
+            auth:true
+        }
+    },
+    {
+        path: '/user/calendar/times',
+        name: 'ListTimes',
+        component: ListTimes,
+        meta: {
+            auth:true
+        }
+    },
+    {
+        path: '/user/calendar/status/time/:id',
+        name: 'timeUpdate',
+        meta: {
+            auth:true
+        }
+    },
+    {
+        path: '/user/calendar/days',
+        name: 'ListDays',
+        component: ListDays,
         meta: {
             auth:true
         }

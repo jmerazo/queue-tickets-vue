@@ -95,7 +95,7 @@ export default {
       dependences: [],
       dependence: "",
       subdependences: [],
-      subdependence: ""
+      subdependence: ""      
     };    
   },
   mounted() {
@@ -114,7 +114,8 @@ export default {
         phone : this.user.phone,
         email : this.user.email,
         dependence_id : this.dependence.id,
-        subdependence_id : this.subdependence
+        subdependence_id : this.subdependence,
+        rol_id : localStorage.getItem('rol')
       })
 
       await axios.post("http://localhost:8888/apitickets/user/create", dataUser, {
@@ -162,7 +163,7 @@ export default {
           this.subdependences = Response.data;
         });
       }
-    }       
+    }      
   }
 };
 </script>

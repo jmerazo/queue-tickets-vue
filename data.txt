@@ -3,6 +3,7 @@ Vuex: https://vueschool.io/lessons/vuex-mutations
 Toast: https://bestofvue.com/repo/MeForma-vue-toaster-vuejs-notification
 CSS Position: https://www.todo-argentina.net/cursos/css/pagina40.php
 INNER JOIN: https://estradawebgroup.com/Post/-Que-son-las-sentencias-INNER-JOIN-de-SQL-y-como-funciona-/20352
+v-calendar: https://vcalendar.io/disable-dates.html
 
 Requisitos:
 Seguimiento con respuesta -> Fase: 1. Cita, 2. Cargar documentos de soporte 3. Respuesta
