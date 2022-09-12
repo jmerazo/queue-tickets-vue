@@ -7,32 +7,11 @@
                             
           <div class="row">
             <div>
-              <h2 id="areas-title">Times</h2>
+              <h2 id="areas-title">Days</h2>
             </div> 
             
-              <div class="col-12" id="form-users-list">
-                  <table class="table table table-striped table-hover">
-                    <thead class="thead-dark">
-                      <tr id="tr-title">
-                          <!--th>Document</th-->
-                          <th>Hour</th>
-                          <th>Status</th>
-                          <th>Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr v-for="time in times" :value="time.id" :key="time.id">
-                          <td>{{time.times}}</td>
-                          <td v-if="time.status == 1" style="color:darkcyan;font-weight: bold;">Available</td>
-                          <td v-if="time.status == 0" style="color:firebrick;font-weight: bold;">Not available</td>
-                          <td id="td-action-times">
-                            <a id="il-cfg" title="Deactivate time" @click="statusTimeUpdate(time.id)" type="submit" v-if="time.status == 1"><router-link :to="{name: 'timeUpdate', params: {id: time.id, status: 0}}"><font-awesome-icon id="fai-list" :icon="['fas', 'toggle-off']"/></router-link></a>
-                            <a id="il-cfg" title="Activate time" @click="statusTimeUpdate(time.id)" type="submit" v-if="time.status == 0"><router-link :to="{name: 'timeUpdate', params: {id: time.id, status: 1}}"><font-awesome-icon id="fai-list" :icon="['fas', 'toggle-on']"/></router-link></a>
-                          </td>
-                      </tr>
-                    </tbody>
-                  </table>                       
-              </div>          
+            <v-date-picker v-model="date" color="purple" :value="null" is-dark :available-dates='{ start: new Date(), end: null}' :attributes="attributes" @dayclick="onDayClick"/>
+            <!-- :min-date='new Date()' :max-date='new Date()' -->       
           </div>                               
         </form> 
     </section>
@@ -47,15 +26,38 @@ export default {
   name: "Areas-List",
   data() {
     return {
-      times: []
+      days: []
     };    
   },
   mounted() {
     this.timeList();
   },
   computed: {
+    dates(){
+      return this.days.map(day => day.date)
+    },
+    attributes(){
+      return this.dates.map(date => ({
+        highlight: true,
+        dates: date
+      }));
+    }
   },
   methods: {
+    onDayClick(day){
+      const idx = this.days.findIndex(d => d.id === day.id);
+      if(idx >= 0){
+        this.days.splice(idx, 1)
+        console.log("IDX: ",idx)
+      }else{
+        this.days.push({
+          id : day.id,
+          date : day.date
+        })
+        console.log("Days id: ", this.id),
+        console.log("Days date: ", this.date)
+      }
+    },  
     async timeList(){
       const id = localStorage.getItem('user_id');
       await axios.get(`http://localhost:8888/apitickets/user/calendar/times/${id}`, {

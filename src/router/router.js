@@ -22,7 +22,8 @@ import AddSubdependence from '@/views/Areas/AddSubdependence.vue'
 import UpdateSubdependence from '@/views/Areas/UpdateSubdependence.vue'
 
 // Calendar
-import ListTimes from '@/views/Calendar/ListTimes.vue'
+import ListTimes from '@/views/Calendar/ConfigCalendar.vue'
+import ListDays from '@/views/Calendar/ListDays.vue'
 
 const routes = [
     {
@@ -201,6 +202,14 @@ const routes = [
     {
         path: '/user/calendar/status/time/:id',
         name: 'timeUpdate',
+        meta: {
+            auth:true
+        }
+    },
+    {
+        path: '/user/calendar/days',
+        name: 'ListDays',
+        component: ListDays,
         meta: {
             auth:true
         }
