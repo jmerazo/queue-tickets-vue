@@ -12,7 +12,69 @@
             
             <v-date-picker v-model="date" color="purple" :value="null" is-dark :available-dates='{ start: new Date(), end: null}' :attributes="attributes" @dayclick="onDayClick"/>
             <!-- :min-date='new Date()' :max-date='new Date()' -->       
-          </div>                               
+          </div>
+          <div class="col-5" id="form-calendar-days">
+                <table class="tb-calendar">
+                  <thead>
+                    <tr>
+                      <th>Lu</th>
+                      <th>Ma</th>
+                      <th>Mie</th>
+                      <th>Ju</th>
+                      <th>Vi</th>
+                      <th>Sá</th>
+                      <th>Do</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td :value="1">1</td>
+                      <td :value="2">2</td>
+                      <td :value="3">3</td>
+                      <td :value="4">4</td>
+                    </tr>
+                    <tr>
+                      <td :value="5">5</td>
+                      <td :value="6">6</td>
+                      <td :value="7">7</td>
+                      <td :value="8">8</td>
+                      <td :value="9">9</td>
+                      <td :value="10">10</td>
+                      <td :value="11">11</td>
+                    </tr>
+                    <tr>
+                      <td :value="12">12</td>
+                      <td :value="13">13</td>
+                      <td :value="14">14</td>
+                      <td :value="15">15</td>
+                      <td :value="16">16</td>
+                      <td :value="17">17</td>
+                      <td :value="18">18</td>
+                    </tr>
+                    <tr>
+                      <td :value="19">19</td>
+                      <td :value="20">20</td>
+                      <td :value="21">21</td>
+                      <td :value="22">22</td>
+                      <td :value="23">23</td>
+                      <td :value="24">24</td>
+                      <td :value="25">25</td>
+                    </tr>
+                    <tr>
+                      <td :value="26">26</td>
+                      <td :value="27">27</td>
+                      <td :value="28">28</td>
+                      <td :value="29">29</td>
+                      <td :value="30">30</td>
+                      <td :value="31">31</td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>                               
         </form> 
     </section>
 </template>
@@ -76,17 +138,17 @@ export default {
       })
       console.log('Status time: ', this.$route.params.status)        
       await axios.put(`http://localhost:8888/apitickets/user/calendar/status/time/${id}`, status, {
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*"
-          }
-        })
-        .then((Response) => {
-          if(!Response){
-            console.log("Error")
-          }
-          this.$router.push('/user/calendar/times');
-        });
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*"
+        }
+      })
+      .then((Response) => {
+        if(!Response){
+          console.log("Error")
+        }
+        this.$router.push('/user/calendar/times');
+      });
     }
   }
 };
@@ -102,6 +164,44 @@ export default {
   padding-bottom: 20px;
   /*overflow: hidden;*/
   /*clear: both;*/
+}
+
+.tb-calendar{
+  border-radius: 15px;
+  justify-content: top;
+}
+
+.tb-calendar th, .tb-calendar td{
+  text-align: center;
+  padding: .2em .5em;
+  border: 1px solid #3d3646;
+}
+
+.tb-calendar td{
+  text-align: left;
+  font-size: .8em;
+  padding-bottom: 3em;
+  padding-right: 3em;
+}
+
+.tb-calendar td:hover{
+  background-color: rgb(131, 131, 131);
+  cursor: pointer;
+  font-size: 1.6em;
+  text-align: center;
+  padding: 0;
+  border-radius: 10px;
+}
+
+#form-calendar-days{
+  padding: 20px;
+  border: 5px solid #5e516e;
+  border-radius: 15px;
+  margin-bottom: 600px;
+  background-color: #3d3646;
+  color: white;
+  font-style: bold;
+  margin-left: 15px;
 }
 
 .row {

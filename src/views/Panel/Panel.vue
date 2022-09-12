@@ -5,7 +5,7 @@
       <label id="subtitle-panel-basic">{{ this.names +' '+this.last_names }}</label>
       <div id="btn-back">
         <router-link title="Days available" id="btn-register-user-top" :to="{name: 'ListDays'}" class="btn" type="button"><font-awesome-icon :icon="['fas', 'calendar']"/></router-link>
-        <router-link title="Hours available" id="btn-register-user-top" :to="{name: 'ListTimes'}" class="btn" type="button"><font-awesome-icon :icon="['fas', 'clock']"/></router-link>       
+        <router-link title="Hours available" id="btn-register-user-top" :to="{name: 'ListTimes'}" class="btn" type="button"><font-awesome-icon :icon="['fas', 'book']"/></router-link>       
       </div>
         <div>
           <h2 id="tickets-title">List Tickets</h2>

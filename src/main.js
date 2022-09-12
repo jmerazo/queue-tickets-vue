@@ -51,7 +51,8 @@ import {
     faCodeCommit,
     faSignature,
     faToggleOn,
-    faToggleOff
+    faToggleOff,
+    faBook
 } from '@fortawesome/free-solid-svg-icons'
 import { 
     faFacebook, 
@@ -105,7 +106,8 @@ library.add(
     faCodeCommit,
     faSignature,
     faToggleOn,
-    faToggleOff
+    faToggleOff,
+    faBook
 )
 
 createApp(App)

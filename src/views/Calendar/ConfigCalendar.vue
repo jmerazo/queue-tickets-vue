@@ -9,7 +9,7 @@
             <div>
               <h2 id="areas-title">Calendar and times</h2>
             </div>
-              <div class="col-8" id="form-calendar-config">
+              <div class="col-6" id="form-calendar-config">
                 <table class="table table table-striped table-hover" id="tb-morning-times">
                   <thead class="thead-dark">
                     <tr id="tr-title">
@@ -24,8 +24,8 @@
                         <td v-show="time.time_id >0 && time.time_id < 23" v-if="time.status == 1" style="color:darkcyan;font-weight: bold;">Available</td>
                         <td v-show="time.time_id >0 && time.time_id < 23" v-if="time.status == 0" style="color:firebrick;font-weight: bold;">Not available</td>
                         <td id="td-action-times" v-show="time.time_id >0 && time.time_id < 23">
-                          <a id="il-cfg" title="Deactivate time" @click="statusTimeUpdate(time.id)" type="submit" v-show="time.time_id >0 && time.time_id < 23" v-if="time.status == 1"><router-link :to="{name: 'timeUpdate', params: {id: time.id, status: 0}}"><font-awesome-icon id="fai-list" :icon="['fas', 'toggle-off']"/></router-link></a>
-                          <a id="il-cfg" title="Activate time" @click="statusTimeUpdate(time.id)" type="submit" v-show="time.time_id >0 && time.time_id < 23" v-if="time.status == 0"><router-link :to="{name: 'timeUpdate', params: {id: time.id, status: 1}}"><font-awesome-icon id="fai-list" :icon="['fas', 'toggle-on']"/></router-link></a>
+                          <a id="il-cfg" title="Deactivate time" @click="statusTimeUpdate(time.id)" type="submit" v-show="time.time_id >0 && time.time_id < 23" v-if="time.status == 1"><router-link :to="{name: 'timeUpdate', params: {id: time.id, status: 0}}"><font-awesome-icon id="fai-list" :icon="['fas', 'toggle-on']"/></router-link></a>
+                          <a id="il-cfg" title="Activate time" @click="statusTimeUpdate(time.id)" type="submit" v-show="time.time_id >0 && time.time_id < 23" v-if="time.status == 0"><router-link :to="{name: 'timeUpdate', params: {id: time.id, status: 1}}"><font-awesome-icon id="fai-list" :icon="['fas', 'toggle-off']"/></router-link></a>
                         </td>
                     </tr>
                   </tbody>
@@ -44,18 +44,29 @@
                           <td v-show="time.time_id > 22" v-if="time.status == 1" style="color:darkcyan;font-weight: bold;">Available</td>
                           <td v-show="time.time_id > 22" v-if="time.status == 0" style="color:firebrick;font-weight: bold;">Not available</td>
                           <td id="td-action-times" v-show="time.time_id > 22">
-                            <a id="il-cfg" title="Deactivate time" @click="statusTimeUpdate(time.id)" type="submit" v-show="time.time_id > 22" v-if="time.status == 1"><router-link :to="{name: 'timeUpdate', params: {id: time.id, status: 0}}"><font-awesome-icon id="fai-list" :icon="['fas', 'toggle-off']"/></router-link></a>
-                            <a id="il-cfg" title="Activate time" @click="statusTimeUpdate(time.id)" type="submit" v-show="time.time_id > 22" v-if="time.status == 0"><router-link :to="{name: 'timeUpdate', params: {id: time.id, status: 1}}"><font-awesome-icon id="fai-list" :icon="['fas', 'toggle-on']"/></router-link></a>
+                            <a id="il-cfg" title="Deactivate time" @click="statusTimeUpdate(time.id)" type="submit" v-show="time.time_id > 22" v-if="time.status == 1"><router-link :to="{name: 'timeUpdate', params: {id: time.id, status: 0}}"><font-awesome-icon id="fai-list" :icon="['fas', 'toggle-on']"/></router-link></a>
+                            <a id="il-cfg" title="Activate time" @click="statusTimeUpdate(time.id)" type="submit" v-show="time.time_id > 22" v-if="time.status == 0"><router-link :to="{name: 'timeUpdate', params: {id: time.id, status: 1}}"><font-awesome-icon id="fai-list" :icon="['fas', 'toggle-off']"/></router-link></a>
                           </td>
                       </tr>
                     </tbody>
                   </table>                                        
               </div>
-              <div class="col-4" id="calendar-days">
-                <v-date-picker v-model="date" color="purple" :value="null" is-dark :available-dates='{ start: new Date(), end: null}' :attributes="attributes" @dayclick="onDayClick"/>
-              <!-- :min-date='new Date()' :max-date='new Date()' --> 
-              </div>
-                       
+              <h5>Date select: </h5><label>{{this.days}}</label>
+              <v-calendar 
+                class="calendar-times" 
+                color="purple" 
+                :value="new Date()" 
+                is-dark
+                :min-date='new Date()'
+                :max-date='new Date()' 
+                :available-dates='{ start: new Date(), end: null}' 
+                :attributes="attributes" 
+                @dayclick="onDayClick"
+                is-expanded
+              />
+            <!-- :min-date='new Date()' :max-date='new Date()' -->
+            <button id="btn-days-clean" type="button" class="btn btn-primary" @click="cleanDays">Clean</button>
+            <button id="btn-days-save" type="submit" class="btn btn-primary" @click="daysUser">Save</button>                                    
           </div>                               
         </form> 
     </section>
@@ -70,15 +81,57 @@ export default {
   name: "Areas-List",
   data() {
     return {
-      times: []
+      times: [],
+      days: []
     };    
   },
   mounted() {
     this.timeList();
   },
   computed: {
+    dates(){
+      return this.days.map(day => day.date)
+    },
+    attributes(){
+      return this.dates.map(date => ({
+        highlight: true,
+        dates: date
+      }));
+    }
   },
   methods: {
+    cleanDays(){
+      this.days = []
+    },
+    async daysUser() {
+      const daysUser = JSON.stringify({
+        user_id : localStorage.getItem('user_id'),
+        days : this.days
+      })
+
+      await axios.post("http://localhost:8888/apitickets/user/calendar/days", daysUser, {
+        headers: {
+          "Content-Type": "application/json"
+        }
+      })
+      .then(() => {
+        this.clearInputsForm1();
+      });
+    },
+    onDayClick(day){
+      const idx = this.days.findIndex(d => d.id === day.id);
+      if(idx >= 0){
+        this.days.splice(idx, 1)
+        console.log("IDX: ",idx)
+      }else{
+        //this.days.push({
+        //  id : day.id,
+        //  date : day.date
+        //})
+        this.days.push(day.date.toString().substring(8,10));
+        //this.days = day.date;
+      }
+    },
     async timeList(){
       const id = localStorage.getItem('user_id');
       await axios.get(`http://localhost:8888/apitickets/user/calendar/times/${id}`, {
@@ -97,21 +150,20 @@ export default {
       })
       console.log('Status time: ', this.$route.params.status)        
       await axios.put(`http://localhost:8888/apitickets/user/calendar/status/time/${id}`, status, {
-          headers: {
-            "Content-Type": "application/json",
-            "Access-Control-Allow-Origin": "*"
-          }
-        })
-        .then((Response) => {
-          if(!Response){
-            console.log("Error")
-          }
-          this.$router.push('/user/calendar/times');
-        });
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*"
+        }
+      })
+      .then((Response) => {
+        if(!Response){
+          console.log("Error")
+        }
+        this.$router.push('/user/calendar/times');
+      });
     }
   }
 };
-
 </script>
 
 <style>
@@ -125,10 +177,9 @@ export default {
   /*clear: both;*/
 }
 
-.row {
-  align-items: center;
-  justify-items: center;
-  justify-content: center;
+.calendar-times {
+  margin-bottom: 20px;
+  margin-left: 25px;
 }
 
 #il-cfg{
@@ -146,6 +197,17 @@ export default {
 #td-action-times{
   width: 40px;
   text-align: center;
+}
+
+#btn-days-clean{
+  margin-bottom: 50px;
+  width: 80px;
+}
+
+#btn-days-save{
+  margin-bottom: 50px;
+  margin-left: 15px;
+  width: 80px;
 }
 
 #calendar-days{
@@ -182,7 +244,7 @@ export default {
 
 #form-calendar-config{
   display: flex;
-  padding-top: 10px;
+  margin-top: 20px;
   text-align: center;
   border: 1px solid #54426b; 
   border-radius: 20px; 
